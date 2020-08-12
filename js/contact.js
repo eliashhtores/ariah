@@ -25,6 +25,12 @@ function loadEventListeners() {
         colorEffect !== '' ? colorEffectOption.removeAttribute("disabled") : colorEffectOption.setAttribute("disabled", '');
     });
 
+    document.querySelector('#keratin').addEventListener('change', () => {
+        const keratin = document.querySelector('#keratin').value;
+        const keratinOption = document.querySelector('#keratinOption');
+        keratin !== '' ? keratinOption.removeAttribute("disabled") : colorEffectOption.setAttribute("disabled", '');
+    });
+
     document.querySelector('#microBlading').addEventListener('change', () => {
         const microBlading = document.querySelector('#microBlading')
         const microBladingOption = document.querySelector('#microBladingOption');
@@ -46,6 +52,7 @@ function loadEventListeners() {
                 data[element.name] = element.value;
         }));
 
+        console.log(data);
         e.preventDefault();
     });
 };
