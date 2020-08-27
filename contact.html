@@ -71,7 +71,7 @@
         <div class="col-12">
           <div class="card true-dark text-center card-form">
             <div class="card-body text-white">
-              <h3>Agenda una cita!</h3>
+              <h3>¡Agenda una cita!</h3>
               <p class="lead">Por favor completa este formulario para agendar una cita</p>
               <form>
                 <div class="input-group input-group-lg mb-3">
@@ -99,7 +99,7 @@
                 <div class="text-left lead">
                   <p>Extensión de pestañas</p>
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                       <select class="form-control form-control-lg" name="eyebrowExtension" id="eyebrowExtension">
                         <option value=""></option>
                         <option value="classic">Clásicas - $500</option>
@@ -108,7 +108,7 @@
                         <option value="megaVolume">Mega volumen - $900</option>
                       </select>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                       <div class="form-group">
                         <select class="form-control form-control-lg" disabled name="eyebrowExtensionOption"
                           id="eyebrowExtensionOption">
@@ -117,19 +117,35 @@
                         </select>
                       </div>
                     </div>
+                    <div class="col-md-3">
+                      <select class="form-control form-control-lg" required disabled name="eyebrowExtensionTime"
+                        id="eyebrowExtensionTime">
+                        <option value="">-- Selecciona hora --</option>
+                        <option value="11:30 a.m.">11:30 a.m.</option>
+                        <option value="12:30 p.m.">12:30 p.m.</option>
+                        <option value="1:30 p.m.">1:30 p.m.</option>
+                        <option value="4:00 p.m.">4:00 p.m.</option>
+                        <option value="5:00 p.m.">5:00 p.m.</option>
+                        <option value="6:00 p.m.">6:00 p.m.</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <input type="date" id="eyebrowExtensionDate" required disabled name="eyebrowExtensionDate"
+                        class="form-control form-control-lg">
+                    </div>
                   </div>
 
                   <br>
 
                   <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                       Ceja HD $350
                     </div>
-                    <div class="custom-control custom-switch col-md-2 offset-1">
+                    <div class="custom-control custom-switch col-md-1">
                       <input type="checkbox" class="switch" name="hdEyebrow" id="hdEyebrow">
                       <label class="custom-control-label" for="hdEyebrow"></label>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                       <div class="form-group">
                         <select disabled class="form-control form-control-lg" name="hdEyebrowOption"
                           id="hdEyebrowOption">
@@ -138,19 +154,32 @@
                         </select>
                       </div>
                     </div>
+                    <div class="col-md-3">
+                      <select class="form-control form-control-lg" required disabled name="hdEyebrowTime"
+                        id="hdEyebrowTime">
+                        <option value="">-- Selecciona hora --</option>
+                        <option value="2:00 p.m.">2:00 p.m.</option>
+                        <option value="3:00 p.m.">3:00 p.m.</option>
+                        <option value="4:00 p.m.">4:00 p.m.</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <input type="date" id="hdEyebrowDate" required disabled name="hdEyebrowDate"
+                        class="form-control form-control-lg">
+                    </div>
                   </div>
 
                   <br>
 
                   <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                       Planchado de Ceja $200
                     </div>
-                    <div class="custom-control custom-switch col-md-2 offset-1">
+                    <div class="custom-control custom-switch col-md-1">
                       <input type="checkbox" class="switch" name="eyebrowIron" id="eyebrowIron">
                       <label class="custom-control-label" for="eyebrowIron"></label>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                       <div class="form-group">
                         <select disabled class="form-control form-control-lg" name="eyebrowIronOption"
                           id="eyebrowIronOption">
@@ -159,6 +188,19 @@
                         </select>
                       </div>
                     </div>
+                    <div class="col-md-3">
+                      <select class="form-control form-control-lg" required disabled name="eyebrowIronTime"
+                        id="eyebrowIronTime">
+                        <option value="">-- Selecciona hora --</option>
+                        <option value="2:00 p.m.">2:00 p.m.</option>
+                        <option value="3:00 p.m.">3:00 p.m.</option>
+                        <option value="4:00 p.m.">4:00 p.m.</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <input type="date" id="eyebrowIronDate" required disabled name="eyebrowIronDate"
+                        class="form-control form-control-lg">
+                    </div>
                   </div>
 
                   <br>
@@ -166,7 +208,7 @@
                   <p>Efecto de color $1750 a $1950</p>
                   <small>Antes de agendar mandar correo con foto de cabello y foto del diseño</small>
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                       <select class="form-control form-control-lg" id="colorEffect" name="colorEffect">
                         <option value=""></option>
                         <option value="classic">Prueba de mechón</option>
@@ -174,7 +216,7 @@
                         <option value="volume">Retoque</option>
                       </select>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                       <div class="form-group">
                         <select disabled class="form-control form-control-lg" id="colorEffectOption"
                           name="colorEffectOption">
@@ -183,20 +225,31 @@
                         </select>
                       </div>
                     </div>
+                    <div class="col-md-3">
+                      <select class="form-control form-control-lg" required disabled name="colorEffectTime"
+                        id="colorEffectTime">
+                        <option value="">-- Selecciona hora --</option>
+                        <option value="9:00 a.m.">9:00 a.m.</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <input type="date" id="colorEffectDate" required disabled name="colorEffectDate"
+                        class="form-control form-control-lg">
+                    </div>
                   </div>
 
                   <br>
 
+                  <small>Antes de agendar mandar correo con foto de cabello y foto del diseño</small>
                   <div class="row">
-                    <div class="col-md-3">
-                      <p> Keratina $1200 a $1500</p>
-                      <small>Antes de agendar mandar correo con foto de cabello y foto del diseño</small>
+                    <div class="col-md-2">
+                      <p>Keratina $1200 a $1500</p>
                     </div>
-                    <div class="custom-control custom-switch col-md-2 offset-1">
+                    <div class="custom-control custom-switch col-md-1">
                       <input type="checkbox" class="switch" id="keratin" name="keratin">
                       <label class="custom-control-label" for="keratin"></label>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                       <div class="form-group">
                         <select disabled class="form-control form-control-lg" name="keratinOption" id="keratinOption">
                           <option value="newSet">Nuevo set</option>
@@ -204,19 +257,32 @@
                         </select>
                       </div>
                     </div>
+                    <div class="col-md-3">
+                      <select class="form-control form-control-lg" required disabled name="keratinTime"
+                        id="keratinTime">
+                        <option value="">-- Selecciona hora --</option>
+                        <option value="9:00 a.m.">9:00 a.m.</option>
+                        <option value="11:00 a.m.">11:00 a.m.</option>
+                        <option value="2:00 p.m.">2:00 p.m.</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <input type="date" id="keratinDate" required disabled name="keratinDate"
+                        class="form-control form-control-lg">
+                    </div>
                   </div>
 
                   <br>
 
                   <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                       Microblading $1000
                     </div>
-                    <div class="custom-control custom-switch col-md-2 offset-1">
+                    <div class="custom-control custom-switch col-md-1">
                       <input type="checkbox" class="switch" id="microBlading" name="microBlading">
                       <label class="custom-control-label" for="microBlading"></label>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                       <div class="form-group">
                         <select disabled class="form-control form-control-lg" name="microBladingOption"
                           id="microBladingOption">
@@ -225,19 +291,35 @@
                         </select>
                       </div>
                     </div>
+                    <div class="col-md-3">
+                      <select class="form-control form-control-lg" required disabled name="microBladingTime"
+                        id="microBladingTime">
+                        <option value="">-- Selecciona hora --</option>
+                        <option value="9:00 a.m.">9:00 a.m.</option>
+                        <option value="10:30 a.m.">10:30 a.m.</option>
+                        <option value="12:00 p.m.">12:00 p.m.</option>
+                        <option value="4:00 p.m.">4:00 p.m.</option>
+                        <option value="5:30 p.m.">5:30 p.m.</option>
+                        <option value="7:00 p.m.">7:00 p.m.</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <input type="date" id="microBladingDate" required disabled name="microBladingDate"
+                        class="form-control form-control-lg">
+                    </div>
                   </div>
 
                   <br>
 
                   <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                       Lash lift $350
                     </div>
-                    <div class="custom-control custom-switch col-md-2 offset-1">
+                    <div class="custom-control custom-switch col-md-1">
                       <input type="checkbox" class="switch" id="lashLift" name="lashLift">
                       <label class="custom-control-label" for="lashLift"></label>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                       <div class="form-group">
                         <select disabled class="form-control form-control-lg" name="lashLiftOption" id="lashLiftOption">
                           <option value="newSet">Nuevo set</option>
@@ -245,8 +327,22 @@
                         </select>
                       </div>
                     </div>
+                    <div class="col-md-3">
+                      <select class="form-control form-control-lg" required disabled name="lashLiftTime"
+                        id="lashLiftTime">
+                        <option value="">-- Selecciona hora --</option>
+                        <option value="2:00 p.m.">2:00 p.m.</option>
+                        <option value="3:00 p.m.">3:00 p.m.</option>
+                        <option value="4:00 p.m.">4:00 p.m.</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <input type="date" id="lashLiftDate" required disabled name="lashLiftDate"
+                        class="form-control form-control-lg">
+                    </div>
                   </div>
                 </div>
+                <br>
 
                 <input type="submit" value="Agendar" class="btn btn-light btn-block">
               </form>
@@ -256,6 +352,25 @@
       </div>
     </div>
   </section>
+
+  <!-- MODAL -->
+  <div class="container">
+    <div class="modal fade" id="confirmModal" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true"
+      style="display: none;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Cita agendada</h5>
+          </div>
+          <div class="modal-body" id="appointmentConfirmed">
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-dark" id="closeModal">Continuar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer id="main-footer" class="text-center p-4">
@@ -273,7 +388,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
-
   <script src="js/app.js"></script>
   <script src="js/contact.js"></script>
 
