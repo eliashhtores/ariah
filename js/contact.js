@@ -177,24 +177,82 @@ function loadEventListeners() {
     document.querySelector('form').addEventListener('submit', function (e) {
         let formData = [];
         let data = {};
-        const form = $(this).serializeArray();
 
-        form.map((element => {
-            if (element.value !== "" && element.name !== "name" && element.name !== "email" && element.name !== "date" && element.name !== "time") {
-                const name = element.name;
-                const value = element.value;
-                formData.push({ name, value });
-            }
+        const eyebrowExtensionAppointment = $('[name="eyebrowExtension[]"]');
+        const hdEyebrowAppointment = $('[name="hdEyebrow[]"]');
+        const eyebrowIronAppointment = $('[name="eyebrowIron[]"]');
+        const colorEffectAppointment = $('[name="colorEffect[]"]');
+        const keratinAppointment = $('[name="keratin[]"]');
+        const microBladingAppointment = $('[name="microBlading[]"]');
+        const lashLiftAppointment = $('[name="lashLift[]"]');
 
-            if (element.name === "name" || element.name === "date" || element.name === "time") {
-                data[element.name] = element.value;
-            }
+        if (eyebrowExtensionAppointment[2].value !== '') {
+            formData.push({
+                "name": "Extensión de pestañas",
+                "type": eyebrowExtensionAppointment[0].value,
+                "option": eyebrowExtensionAppointment[1].value,
+                "time": eyebrowExtensionAppointment[2].value,
+                "date": eyebrowExtensionAppointment[3].value
+            });
+        }
 
-            if (element.name === "email" && element.value !== "") {
-                data[element.name] = element.value
-            }
-        }));
+        if (hdEyebrowAppointment[2].value !== '') {
+            formData.push({
+                "name": "Cejas HD",
+                "option": hdEyebrowAppointment[1].value,
+                "time": hdEyebrowAppointment[2].value,
+                "date": hdEyebrowAppointment[3].value
+            });
+        }
 
+        if (eyebrowIronAppointment[2].value !== '') {
+            formData.push({
+                "name": "Planchado de ceja",
+                "option": eyebrowIronAppointment[1].value,
+                "time": eyebrowIronAppointment[2].value,
+                "date": eyebrowIronAppointment[3].value
+            });
+        }
+
+        if (colorEffectAppointment[2].value !== '') {
+            formData.push({
+                "name": "Efecto de color",
+                "type": colorEffectAppointment[0].value,
+                "option": colorEffectAppointment[1].value,
+                "time": colorEffectAppointment[2].value,
+                "date": colorEffectAppointment[3].value
+            });
+        }
+
+        if (keratinAppointment[2].value !== '') {
+            formData.push({
+                "name": "Keratina",
+                "option": keratinAppointment[1].value,
+                "time": keratinAppointment[2].value,
+                "date": keratinAppointment[3].value
+            });
+        }
+
+        if (microBladingAppointment[2].value !== '') {
+            formData.push({
+                "name": "Microblading",
+                "option": microBladingAppointment[1].value,
+                "time": microBladingAppointment[2].value,
+                "date": microBladingAppointment[3].value
+            });
+        }
+
+        if (lashLiftAppointment[2].value !== '') {
+            formData.push({
+                "name": "Lash lift",
+                "option": lashLiftAppointment[1].value,
+                "time": lashLiftAppointment[2].value,
+                "date": lashLiftAppointment[3].value
+            });
+        }
+
+        data["name"] = document.querySelector('#name').value;
+        data["email"] = document.querySelector('#email').value !== '' ? document.querySelector('#email').value : '';
         data["services"] = formData;
 
         $.ajax({

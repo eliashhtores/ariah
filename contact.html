@@ -15,7 +15,7 @@
 
 <body>
   <div class="container text-center">
-    <img src="img/logo.jpeg" width="700" height="700" class="img-fluid">
+    <img src="img/logo.jpeg" loading="lazy" width="700" height="700" class="img-fluid">
   </div>
 
   <nav class="navbar navbar-expand-sm navbar-dark true-dark">
@@ -35,7 +35,7 @@
             <a href="index.html#eyeBrowExtHead" class="nav-link">Servicios</a>
           </li>
           <li class="nav-item ml-5 mr-5 active">
-            <a href="contact.html" class="nav-link">Agenda</a>
+            <a href="contact.html" class="nav-link">Agendar Cita</a>
           </li>
         </ul>
       </div>
@@ -63,7 +63,6 @@
 
   </nav>
 
-  <!--HOME ICON SECTION  -->
   <section id="home-icons" class="py-5">
 
     <div class="container">
@@ -100,26 +99,27 @@
                   <p>Extensión de pestañas</p>
                   <div class="row">
                     <div class="col-md-3">
-                      <select class="form-control form-control-lg" name="eyebrowExtension" id="eyebrowExtension">
+                      <select class="form-control form-control-lg" name="eyebrowExtension[]"
+                        data-field="eyebrowExtension" id="eyebrowExtension">
                         <option value=""></option>
-                        <option value="classic">Clásicas - $500</option>
-                        <option value="hybrid">Híbridas - $600</option>
-                        <option value="volume">Volumen - $700</option>
-                        <option value="megaVolume">Mega volumen - $900</option>
+                        <option value="Clásicas">Clásicas - $500</option>
+                        <option value="Híbridas">Híbridas - $600</option>
+                        <option value="Volumen">Volumen - $700</option>
+                        <option value="Mega volumen">Mega volumen - $900</option>
                       </select>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <select class="form-control form-control-lg" disabled name="eyebrowExtensionOption"
-                          id="eyebrowExtensionOption">
-                          <option value="newSet">Nuevo set</option>
-                          <option value="retouch">Retoque</option>
+                        <select class="form-control form-control-lg" disabled name="eyebrowExtension[]"
+                          data-field="eyebrowExtensionOption" id="eyebrowExtensionOption">
+                          <option value="Nuevo set">Nuevo set</option>
+                          <option value="Retoque">Retoque</option>
                         </select>
                       </div>
                     </div>
                     <div class="col-md-3">
-                      <select class="form-control form-control-lg" required disabled name="eyebrowExtensionTime"
-                        id="eyebrowExtensionTime">
+                      <select class="form-control form-control-lg" required disabled name="eyebrowExtension[]"
+                        data-field="eyebrowExtensionTime" id="eyebrowExtensionTime">
                         <option value="">-- Selecciona hora --</option>
                         <option value="11:30 a.m.">11:30 a.m.</option>
                         <option value="12:30 p.m.">12:30 p.m.</option>
@@ -130,8 +130,8 @@
                       </select>
                     </div>
                     <div class="col-md-3">
-                      <input type="date" id="eyebrowExtensionDate" required disabled name="eyebrowExtensionDate"
-                        class="form-control form-control-lg">
+                      <input type="date" id="eyebrowExtensionDate" required disabled data-field="eyebrowExtensionDate"
+                        name="eyebrowExtension[]" class="form-control form-control-lg">
                     </div>
                   </div>
 
@@ -142,21 +142,21 @@
                       Ceja HD $350
                     </div>
                     <div class="custom-control custom-switch col-md-1">
-                      <input type="checkbox" class="switch" name="hdEyebrow" id="hdEyebrow">
+                      <input type="checkbox" class="switch" name="hdEyebrow[]" data-field="hdEyebrow" id="hdEyebrow">
                       <label class="custom-control-label" for="hdEyebrow"></label>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <select disabled class="form-control form-control-lg" name="hdEyebrowOption"
-                          id="hdEyebrowOption">
-                          <option value="newSet">Nuevo set</option>
-                          <option value="retouch">Retoque</option>
+                        <select disabled class="form-control form-control-lg" name="hdEyebrow[]"
+                          data-field="hdEyebrowOption" id="hdEyebrowOption">
+                          <option value="Nuevo set">Nuevo set</option>
+                          <option value="Retoque">Retoque</option>
                         </select>
                       </div>
                     </div>
                     <div class="col-md-3">
-                      <select class="form-control form-control-lg" required disabled name="hdEyebrowTime"
-                        id="hdEyebrowTime">
+                      <select class="form-control form-control-lg" required disabled name="hdEyebrow[]"
+                        data-field="hdEyebrowTime" id="hdEyebrowTime">
                         <option value="">-- Selecciona hora --</option>
                         <option value="2:00 p.m.">2:00 p.m.</option>
                         <option value="3:00 p.m.">3:00 p.m.</option>
@@ -164,8 +164,8 @@
                       </select>
                     </div>
                     <div class="col-md-3">
-                      <input type="date" id="hdEyebrowDate" required disabled name="hdEyebrowDate"
-                        class="form-control form-control-lg">
+                      <input type="date" id="hdEyebrowDate" required disabled name="hdEyebrow[]"
+                        data-field="hdEyebrowDate" class="form-control form-control-lg">
                     </div>
                   </div>
 
@@ -173,24 +173,25 @@
 
                   <div class="row">
                     <div class="col-md-2">
-                      Planchado de Ceja $200
+                      Planchado de ceja $200
                     </div>
                     <div class="custom-control custom-switch col-md-1">
-                      <input type="checkbox" class="switch" name="eyebrowIron" id="eyebrowIron">
+                      <input type="checkbox" class="switch" name="eyebrowIron[]" data-field="eyebrowIron"
+                        id="eyebrowIron">
                       <label class="custom-control-label" for="eyebrowIron"></label>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <select disabled class="form-control form-control-lg" name="eyebrowIronOption"
-                          id="eyebrowIronOption">
-                          <option value="newSet">Nuevo set</option>
-                          <option value="retouch">Retoque</option>
+                        <select disabled class="form-control form-control-lg" name="eyebrowIron[]"
+                          data-field="eyebrowIronOption" id="eyebrowIronOption">
+                          <option value="Nuevo set">Nuevo set</option>
+                          <option value="Retoque">Retoque</option>
                         </select>
                       </div>
                     </div>
                     <div class="col-md-3">
-                      <select class="form-control form-control-lg" required disabled name="eyebrowIronTime"
-                        id="eyebrowIronTime">
+                      <select class="form-control form-control-lg" required disabled name="eyebrowIron[]"
+                        data-field="eyebrowIronTime" id="eyebrowIronTime">
                         <option value="">-- Selecciona hora --</option>
                         <option value="2:00 p.m.">2:00 p.m.</option>
                         <option value="3:00 p.m.">3:00 p.m.</option>
@@ -198,68 +199,72 @@
                       </select>
                     </div>
                     <div class="col-md-3">
-                      <input type="date" id="eyebrowIronDate" required disabled name="eyebrowIronDate"
-                        class="form-control form-control-lg">
+                      <input type="date" id="eyebrowIronDate" required disabled name="eyebrowIron[]"
+                        data-field="eyebrowIronDate" class="form-control form-control-lg">
                     </div>
                   </div>
 
                   <br>
 
-                  <p>Efecto de color $1750 a $1950</p>
-                  <small>Antes de agendar mandar correo con foto de cabello y foto del diseño</small>
+                  <p>Efecto de color $1750 a $1950*</p>
+                  <small>*Antes de agendar mandar correo a ariah.studio.cel@gmail.com con foto de cabello y foto del
+                    diseño</small>
                   <div class="row">
                     <div class="col-md-3">
-                      <select class="form-control form-control-lg" id="colorEffect" name="colorEffect">
+                      <select class="form-control form-control-lg" id="colorEffect" name="colorEffect[]"
+                        data-field="colorEffect">
                         <option value=""></option>
-                        <option value="classic">Prueba de mechón</option>
-                        <option value="hybrid">Efecto de color</option>
-                        <option value="volume">Retoque</option>
+                        <option value="Prueba de mechón">Prueba de mechón</option>
+                        <option value="Efecto de color">Efecto de color</option>
+                        <option value="Retoque">Retoque</option>
                       </select>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <select disabled class="form-control form-control-lg" id="colorEffectOption"
-                          name="colorEffectOption">
-                          <option value="newSet">Nuevo set</option>
-                          <option value="retouch">Retoque</option>
+                          name="colorEffect[]" data-field="colorEffectOption">
+                          <option value="Nuevo set">Nuevo set</option>
+                          <option value="Retoque">Retoque</option>
                         </select>
                       </div>
                     </div>
                     <div class="col-md-3">
-                      <select class="form-control form-control-lg" required disabled name="colorEffectTime"
-                        id="colorEffectTime">
+                      <select class="form-control form-control-lg" required disabled name="colorEffect[]"
+                        data-field="colorEffectTime" id="colorEffectTime">
                         <option value="">-- Selecciona hora --</option>
                         <option value="9:00 a.m.">9:00 a.m.</option>
                       </select>
                     </div>
                     <div class="col-md-3">
-                      <input type="date" id="colorEffectDate" required disabled name="colorEffectDate"
-                        class="form-control form-control-lg">
+                      <input type="date" id="colorEffectDate" required disabled name="colorEffect[]"
+                        data-field="colorEffectDate" class="form-control form-control-lg">
                     </div>
                   </div>
 
                   <br>
 
-                  <small>Antes de agendar mandar correo con foto de cabello y foto del diseño</small>
+                  <small>Antes de agendar mandar correo a ariah.studio.cel@gmail.com con foto de cabello y foto del
+                    diseño</small>
                   <div class="row">
                     <div class="col-md-2">
                       <p>Keratina $1200 a $1500</p>
                     </div>
                     <div class="custom-control custom-switch col-md-1">
-                      <input type="checkbox" class="switch" id="keratin" name="keratin">
+                      <input type="checkbox" class="switch" id="keratin" data-field="keratin" name="keratin[]">
                       <label class="custom-control-label" for="keratin"></label>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <select disabled class="form-control form-control-lg" name="keratinOption" id="keratinOption">
-                          <option value="newSet">Nuevo set</option>
-                          <option value="retouch">Retoque</option>
+                        <select disabled class="form-control form-control-lg" name="keratin[]" id="keratinOption"
+                          data-field="keratinOption">
+                          <option value="Nuevo set">Nuevo set</option>
+                          <option value="Retoque">Retoque</option>
                         </select>
                       </div>
                     </div>
                     <div class="col-md-3">
-                      <select class="form-control form-control-lg" required disabled name="keratinTime"
-                        id="keratinTime">
+                      <select class="form-control form-control-lg" required disabled data-field="keratinTime"
+                        name="keratin[]" id="keratinTime">
                         <option value="">-- Selecciona hora --</option>
                         <option value="9:00 a.m.">9:00 a.m.</option>
                         <option value="11:00 a.m.">11:00 a.m.</option>
@@ -267,7 +272,7 @@
                       </select>
                     </div>
                     <div class="col-md-3">
-                      <input type="date" id="keratinDate" required disabled name="keratinDate"
+                      <input type="date" id="keratinDate" required disabled data-field="keratinDate" name="keratin[]"
                         class="form-control form-control-lg">
                     </div>
                   </div>
@@ -279,21 +284,22 @@
                       Microblading $1000
                     </div>
                     <div class="custom-control custom-switch col-md-1">
-                      <input type="checkbox" class="switch" id="microBlading" name="microBlading">
+                      <input type="checkbox" class="switch" id="microBlading" name="microBlading[]"
+                        data-field="microBlading">
                       <label class="custom-control-label" for="microBlading"></label>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <select disabled class="form-control form-control-lg" name="microBladingOption"
-                          id="microBladingOption">
-                          <option value="newSet">Nuevo set</option>
-                          <option value="retouch">Retoque</option>
+                        <select disabled class="form-control form-control-lg" name="microBlading[]"
+                          data-field="microBladingOption" id="microBladingOption">
+                          <option value="Nuevo set">Nuevo set</option>
+                          <option value="Retoque">Retoque</option>
                         </select>
                       </div>
                     </div>
                     <div class="col-md-3">
-                      <select class="form-control form-control-lg" required disabled name="microBladingTime"
-                        id="microBladingTime">
+                      <select class="form-control form-control-lg" required disabled name="microBlading[]"
+                        data-field="microBladingTime" id="microBladingTime">
                         <option value="">-- Selecciona hora --</option>
                         <option value="9:00 a.m.">9:00 a.m.</option>
                         <option value="10:30 a.m.">10:30 a.m.</option>
@@ -304,8 +310,8 @@
                       </select>
                     </div>
                     <div class="col-md-3">
-                      <input type="date" id="microBladingDate" required disabled name="microBladingDate"
-                        class="form-control form-control-lg">
+                      <input type="date" id="microBladingDate" required disabled name="microBlading[]"
+                        data-field="microBladingDate" class="form-control form-control-lg">
                     </div>
                   </div>
 
@@ -316,20 +322,21 @@
                       Lash lift $350
                     </div>
                     <div class="custom-control custom-switch col-md-1">
-                      <input type="checkbox" class="switch" id="lashLift" name="lashLift">
+                      <input type="checkbox" class="switch" id="lashLift" name="lashLift[]" data-field="lashLift">
                       <label class="custom-control-label" for="lashLift"></label>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <select disabled class="form-control form-control-lg" name="lashLiftOption" id="lashLiftOption">
-                          <option value="newSet">Nuevo set</option>
-                          <option value="retouch">Retoque</option>
+                        <select disabled class="form-control form-control-lg" name="lashLift[]"
+                          data-field="lashLiftOption" id="lashLiftOption">
+                          <option value="Nuevo set">Nuevo set</option>
+                          <option value="Retoque">Retoque</option>
                         </select>
                       </div>
                     </div>
                     <div class="col-md-3">
-                      <select class="form-control form-control-lg" required disabled name="lashLiftTime"
-                        id="lashLiftTime">
+                      <select class="form-control form-control-lg" required disabled name="lashLift[]"
+                        data-field="lashLiftTime" id="lashLiftTime">
                         <option value="">-- Selecciona hora --</option>
                         <option value="2:00 p.m.">2:00 p.m.</option>
                         <option value="3:00 p.m.">3:00 p.m.</option>
@@ -337,7 +344,7 @@
                       </select>
                     </div>
                     <div class="col-md-3">
-                      <input type="date" id="lashLiftDate" required disabled name="lashLiftDate"
+                      <input type="date" id="lashLiftDate" required disabled name="lashLift[]" data-field="lashLiftDate"
                         class="form-control form-control-lg">
                     </div>
                   </div>
