@@ -255,8 +255,14 @@ function loadEventListeners() {
         data["email"] = document.querySelector('#email').value !== '' ? document.querySelector('#email').value : '';
         data["services"] = formData;
 
+        let host = `http://${window.location.hostname}:3000/appointments/admin/${today}`;
+
+        if (window.location.hostname !== '127.0.0.1') {
+            host = `https://ariah-server.herokuapp.com/appointments/admin/${today}`;
+        }
+
         $.ajax({
-            url: 'http://localhost:3000/appointments',
+            url: `${host}/appointments`,
             crossDomain: true,
             data: JSON.stringify(data),
             method: "POST",

@@ -1,4 +1,4 @@
-const appointments = document.querySelector('#appointments')
+const appointments = document.querySelector('#appointments');
 
 window.onload = function () {
     let today = new Date();
@@ -6,9 +6,14 @@ window.onload = function () {
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const year = today.getFullYear();
     today = year + '-' + month + '-' + day;
+    let host = `http://${window.location.hostname}:3000/appointments/admin/${today}`;
+
+    if (window.location.hostname !== '127.0.0.1') {
+        host = `https://ariah-server.herokuapp.com/appointments/admin/${today}`;
+    }
 
     $.ajax({
-        url: `http://localhost:3000/appointments/admin/${today}`,
+        url: host,
         crossDomain: true,
         method: "GET",
         headers: {
@@ -35,8 +40,7 @@ window.onload = function () {
                         div.innerHTML += `- ${response[i].services[j].name} -<br>
                         ${type}
                         <small>${response[i].services[j].option}</small> <br>
-                        <small>${response[i].services[j].time}</small> <br>
-                        <small>${response[i].services[j].date}</small> <br><br>`;
+                        <small>${response[i].services[j].date} a las ${response[i].services[j].time}</small> <br><br>`;
                     }
                 }
                 div.innerHTML += '<hr>';
