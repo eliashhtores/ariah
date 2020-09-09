@@ -12,6 +12,7 @@ window.onload = function () {
         host = `https://ariah-server.herokuapp.com/appointments/admin/${today}`;
     }
 
+    const div = document.createElement("div");
     $.ajax({
         url: host,
         crossDomain: true,
@@ -23,7 +24,7 @@ window.onload = function () {
             for (let i = 0; i < response.length; i++) {
                 const name = response[i].name;
                 const email = response[i].email !== undefined ? response[i].email : '';
-                const div = document.createElement("div");
+
                 div.innerHTML = `<strong>Nombre:</strong> ${name} <br>`;
                 if (email) {
                     div.innerHTML += `<strong>Correo:</strong> ${email} <br>`;
@@ -49,8 +50,13 @@ window.onload = function () {
             }
         },
         error: function (err) {
-            console.log(err);
-            alert('Ocurrió un error, favor de intentar más tarde');
+            if (err.status == 404) {
+                div.innerHTML = 'No existen citas programadas por el momento.';
+                appointments.appendChild(div);
+            } else {
+                console.log(err);
+                alert('Ocurrió un error, favor de intentar más tarde');
+            }
         }
     });
 }
