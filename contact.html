@@ -370,9 +370,14 @@
                   var checkoutButton = document.getElementById('checkout-button');
 
                   checkoutButton.addEventListener('click', function () {
+                    let host = `http://${window.location.hostname}:3000`;
+
+                    if (window.location.hostname !== '127.0.0.1') {
+                      host = `https://ariah-server.herokuapp.com`;
+                    }
                     // Create a new Checkout Session using the server-side endpoint you
                     // created in step 3.
-                    fetch('http://localhost:3000/appointments/create-checkout-session', {
+                    fetch(`${host}/appointments/create-checkout-session`, {
                       method: 'POST',
                     })
                       .then(function (response) {
