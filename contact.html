@@ -366,15 +366,19 @@
                 <button id="checkout-button" class="btn btn-light btn-block">Agendar</button>
                 <script type="text/javascript">
                   // Create an instance of the Stripe object with your publishable API key
-                  var stripe = Stripe('pk_test_51HOsn3GD6aQ2YRETSrkC22e2VavAtvA56qcFJOMuDvDWpDa2ENUC3JmPL05yxDizCSQl6z1spTJIZP6T5oll56kJ00WQhWFlJx');
+                  let host = `http://${window.location.hostname}:3000`;
+                  let key = 'pk_test_51HOsn3GD6aQ2YRETSrkC22e2VavAtvA56qcFJOMuDvDWpDa2ENUC3JmPL05yxDizCSQl6z1spTJIZP6T5oll56kJ00WQhWFlJx';
+
+                  if (window.location.hostname !== '127.0.0.1') {
+                    host = `https://ariah-server.herokuapp.com`;
+                    key = 'pk_live_51HOsn3GD6aQ2YRETGnCEU127RtuFXbrnv1ZM6lNgsSznNv1chou2uPpG09M0kdDSTXSLHZIvTVbLdSLlWs0pBn3o00HGc0v5GB';
+                  }
+
+                  var stripe = Stripe(key);
                   var checkoutButton = document.getElementById('checkout-button');
 
                   checkoutButton.addEventListener('click', function () {
-                    let host = `http://${window.location.hostname}:3000`;
 
-                    if (window.location.hostname !== '127.0.0.1') {
-                      host = `https://ariah-server.herokuapp.com`;
-                    }
                     // Create a new Checkout Session using the server-side endpoint you
                     // created in step 3.
                     fetch(`${host}/appointments/create-checkout-session`, {
