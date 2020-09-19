@@ -169,10 +169,10 @@ function loadEventListeners() {
         });
     });
 
-    document.querySelector('#closeModal').addEventListener('click', () => {
-        $('#confirmModal').modal('hide');
-        window.location.replace("index.html");
-    });
+    // document.querySelector('#closeModal').addEventListener('click', () => {
+    //     $('#confirmModal').modal('hide');
+    //     window.location.replace("index.html");
+    // });
 
     document.querySelector('form').addEventListener('submit', function (e) {
         let formData = [];
@@ -272,8 +272,8 @@ function loadEventListeners() {
             },
             dataType: "json",
             success: function (response) {
-                $('#confirmModal').modal('show');
-                document.getElementById("appointmentConfirmed").innerHTML = `¡Cita(s) agendada(s)!`;
+                // $('#confirmModal').modal('show');
+                // document.getElementById("appointmentConfirmed").innerHTML = `¡Cita(s) agendada(s)!`;
                 console.log(response);
             },
             error: function (err) {
