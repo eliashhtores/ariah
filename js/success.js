@@ -13,21 +13,18 @@ if (appointment) {
 }
 
 function createAppointment(data) {
-    $.ajax({
-        url: `${host}/appointments`,
-        crossDomain: true,
-        data: JSON.stringify(data),
-        method: "POST",
+    fetch(`${host}/appointments`, {
+        method: 'POST',
+        body: JSON.stringify(data),
         headers: {
-            'Content-Type': 'application/json'
-        },
-        dataType: "json",
-        success: function (response) {
-            console.log(response);
-        },
-        error: function (err) {
-            console.log(err);
-            alert('Ocurrió un error, favor de intentar más tarde');
+            'Content-type': 'application/json; charset=UTF-8'
         }
-    });
+    })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            alert('Ocurrió un error, favor de intentar más tarde');
+            console.error('Error:', error);
+        });
 }
