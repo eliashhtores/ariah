@@ -7,6 +7,9 @@ const year = today.getFullYear();
 today = year + '-' + month + '-' + day;
 
 function loadEventListeners() {
+    const checkoutButton = document.querySelector('#checkoutButton');
+    checkoutButton.disabled = false;
+    let formData = [];
 
     document.querySelector('#eyebrowExtension').addEventListener('change', () => {
         const eyebrowExtension = document.querySelector('#eyebrowExtension').value;
@@ -169,14 +172,9 @@ function loadEventListeners() {
         });
     });
 
-    // document.querySelector('#closeModal').addEventListener('click', () => {
-    //     $('#confirmModal').modal('hide');
-    //     window.location.replace("index.html");
-    // });
-
     document.querySelector('form').addEventListener('submit', function (e) {
-        let formData = [];
         let data = {};
+        checkoutButton.disabled = true;
 
         const eyebrowExtensionAppointment = $('[name="eyebrowExtension[]"]');
         const hdEyebrowAppointment = $('[name="hdEyebrow[]"]');
@@ -256,31 +254,49 @@ function loadEventListeners() {
         data["email"] = document.querySelector('#email').value !== '' ? document.querySelector('#email').value : '';
         data["services"] = formData;
 
+        // Create an instance of the Stripe object with the publishable API key
         let host = `http://${window.location.hostname}:3000`;
+        let key = 'pk_test_51HOsn3GD6aQ2YRETSrkC22e2VavAtvA56qcFJOMuDvDWpDa2ENUC3JmPL05yxDizCSQl6z1spTJIZP6T5oll56kJ00WQhWFlJx';
 
         if (window.location.hostname !== '127.0.0.1') {
             host = `https://ariah-server.herokuapp.com`;
+            key = 'pk_live_51HOsn3GD6aQ2YRETGnCEU127RtuFXbrnv1ZM6lNgsSznNv1chou2uPpG09M0kdDSTXSLHZIvTVbLdSLlWs0pBn3o00HGc0v5GB';
         }
 
-        $.ajax({
-            url: `${host}/appointments`,
-            crossDomain: true,
-            data: JSON.stringify(data),
-            method: "POST",
+        const storage = localStorage;
+        let appointment = [];
+        console.log(data);
+        appointment.push(data);
+        storage.setItem("appointment", JSON.stringify(appointment[0]));
+
+        const stripe = Stripe(key);
+        // Create a new Checkout Session
+        fetch(`${host}/appointments/create-checkout-session`, {
+            method: 'POST',
+            body: JSON.stringify({
+                data: formData.length,
+            }),
             headers: {
-                'Content-Type': 'application/json'
-            },
-            dataType: "json",
-            success: function (response) {
-                // $('#confirmModal').modal('show');
-                // document.getElementById("appointmentConfirmed").innerHTML = `¡Cita(s) agendada(s)!`;
-                console.log(response);
-            },
-            error: function (err) {
-                console.log(err);
-                alert('Ocurrió un error, favor de intentar más tarde');
+                'Content-type': 'application/json; charset=UTF-8'
             }
-        });
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (session) {
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .then(function (result) {
+                // If `redirectToCheckout` fails due to a browser or network
+                // error, display the localized error message to the
+                // customer using `error.message`.
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            })
+            .catch(function (error) {
+                console.error('Error:', error);
+            });
 
         e.preventDefault();
     });

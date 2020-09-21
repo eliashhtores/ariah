@@ -26,3 +26,7 @@ $(function () {
         });
     });
 });
+
+function deleteSession() {
+    localStorage.removeItem('appointment');
+}
