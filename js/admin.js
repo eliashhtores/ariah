@@ -30,9 +30,13 @@ window.onload = function () {
             } else {
                 for (let i = 0; i < response.length; i++) {
                     const name = response[i].name;
+                    const phone = response[i].phone !== undefined ? response[i].phone : '';
                     const email = response[i].email !== undefined ? response[i].email : '';
-
+                    const div = document.createElement("div");
                     div.innerHTML = `<strong>Nombre:</strong> ${name} <br>`;
+                    if (phone) {
+                        div.innerHTML += `<strong>Teléfono:</strong> ${phone} <br>`;
+                    }
                     if (email) {
                         div.innerHTML += `<strong>Correo:</strong> ${email} <br>`;
                     }
