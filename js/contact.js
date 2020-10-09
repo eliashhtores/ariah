@@ -6,6 +6,22 @@ const month = String(today.getMonth() + 1).padStart(2, '0');
 const year = today.getFullYear();
 today = year + '-' + month + '-' + day;
 
+$('input[type=date]').on('change', function (e) {
+    const day = new Date(this.value).getUTCDay();
+    if (e.target.value < today) {
+        e.preventDefault();
+        this.value = '';
+        invalidDate();
+    }
+
+    if ([1, 0].includes(day)) {
+        e.preventDefault();
+        this.value = '';
+        alert('No se permiten citas en lunes y domingo');
+    }
+});
+
+
 function loadEventListeners() {
     const checkoutButton = document.querySelector('#checkoutButton');
     checkoutButton.disabled = false;
@@ -26,12 +42,6 @@ function loadEventListeners() {
             eyebrowExtensionDate.setAttribute("disabled", '');
             eyebrowExtensionTime.setAttribute("disabled", '');
         }
-
-        eyebrowExtensionDate.addEventListener('change', (e) => {
-            if (e.target.value < today) {
-                invalidDate();
-            }
-        });
     });
 
     document.querySelector('#hdEyebrow').addEventListener('change', () => {
@@ -49,12 +59,6 @@ function loadEventListeners() {
             hdEyebrowDate.setAttribute("disabled", '');
             hdEyebrowTime.setAttribute("disabled", '');
         }
-
-        hdEyebrowDate.addEventListener('change', (e) => {
-            if (e.target.value < today) {
-                invalidDate();
-            }
-        });
     });
 
     document.querySelector('#eyebrowIron').addEventListener('change', () => {
@@ -72,12 +76,6 @@ function loadEventListeners() {
             eyebrowIronDate.setAttribute("disabled", '');
             eyebrowIronTime.setAttribute("disabled", '');
         }
-
-        eyebrowIronDate.addEventListener('change', (e) => {
-            if (e.target.value < today) {
-                invalidDate();
-            }
-        });
     });
 
     document.querySelector('#colorEffect').addEventListener('change', () => {
@@ -95,12 +93,6 @@ function loadEventListeners() {
             colorEffectDate.setAttribute("disabled", '');
             colorEffectTime.setAttribute("disabled", '');
         }
-
-        colorEffectDate.addEventListener('change', (e) => {
-            if (e.target.value < today) {
-                invalidDate();
-            }
-        });
     });
 
     document.querySelector('#keratin').addEventListener('change', () => {
@@ -118,12 +110,6 @@ function loadEventListeners() {
             keratinDate.setAttribute("disabled", '');
             keratinTime.setAttribute("disabled", '');
         }
-
-        keratinDate.addEventListener('change', (e) => {
-            if (e.target.value < today) {
-                invalidDate();
-            }
-        });
     });
 
     document.querySelector('#microBlading').addEventListener('change', () => {
@@ -141,12 +127,6 @@ function loadEventListeners() {
             microBladingDate.setAttribute("disabled", '');
             microBladingTime.setAttribute("disabled", '');
         }
-
-        microBladingDate.addEventListener('change', (e) => {
-            if (e.target.value < today) {
-                invalidDate();
-            }
-        });
     });
 
     document.querySelector('#lashLift').addEventListener('change', () => {
@@ -164,12 +144,6 @@ function loadEventListeners() {
             lashLiftDate.setAttribute("disabled", '');
             lashLiftTime.setAttribute("disabled", '');
         }
-
-        lashLiftDate.addEventListener('change', (e) => {
-            if (e.target.value < today) {
-                invalidDate();
-            }
-        });
     });
 
     document.querySelector('form').addEventListener('submit', function (e) {
