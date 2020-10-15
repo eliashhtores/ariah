@@ -46,6 +46,10 @@ body {
   color: #fff;
 }
 
+.header-background {
+  background-color: #fdf1f1;
+}
+
 .dark-overlay {
   position: absolute;
   top: 0;

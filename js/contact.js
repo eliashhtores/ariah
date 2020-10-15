@@ -230,52 +230,27 @@ function loadEventListeners() {
 
         if (formData.length > 0) {
             checkoutButton.disabled = true;
-            // Create an instance of the Stripe object with the publishable API key
             let host = `http://${window.location.hostname}:3000`;
-            let key = 'pk_test_51HOsn3GD6aQ2YRETSrkC22e2VavAtvA56qcFJOMuDvDWpDa2ENUC3JmPL05yxDizCSQl6z1spTJIZP6T5oll56kJ00WQhWFlJx';
 
             if (window.location.hostname !== '127.0.0.1') {
                 host = `https://ariah-server.herokuapp.com`;
-                key = 'pk_live_51HOsn3GD6aQ2YRETGnCEU127RtuFXbrnv1ZM6lNgsSznNv1chou2uPpG09M0kdDSTXSLHZIvTVbLdSLlWs0pBn3o00HGc0v5GB';
             }
 
-            const storage = localStorage;
-            let appointment = [];
-            console.log(data);
-            appointment.push(data);
-            storage.setItem("appointment", JSON.stringify(appointment[0]));
-
-            const stripe = Stripe(key);
-            // Create a new Checkout Session
-            fetch(`${host}/appointments/create-checkout-session`, {
+            fetch(`${host}/appointments`, {
                 method: 'POST',
-                body: JSON.stringify({
-                    data: formData.length,
-                }),
+                body: JSON.stringify(data),
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8'
                 }
             })
                 .then(function (response) {
-                    return response.json();
-                })
-                .then(function (session) {
-                    return stripe.redirectToCheckout({ sessionId: session.id });
-                })
-                .then(function (result) {
-                    // If `redirectToCheckout` fails due to a browser or network
-                    // error, display the localized error message to the
-                    // customer using `error.message`.
-                    if (result.error) {
-                        alert(result.error.message);
-                    }
+                    console.log(response);
+                    window.location.replace('success.html');
                 })
                 .catch(function (error) {
+                    window.location.replace('cancel.html');
                     console.error('Error:', error);
                 });
-        } else {
-            alert('Por favor, selecciona la cita que deseas agendar.');
-            checkoutButton.disabled = false;
         }
 
         e.preventDefault();
