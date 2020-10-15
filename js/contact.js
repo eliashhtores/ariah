@@ -19,8 +19,20 @@ $('input[type=date]').on('change', function (e) {
         this.value = '';
         alert('No se permiten citas en lunes y domingo');
     }
-});
 
+    const current = $(`[name="${this.name}"]`);
+    const serviceName = mapServiceNames(current[0].id);
+    const time = current[2].value;
+    const date = current[3].value;
+    checkDuplicated(serviceName, date, time)
+        .then(response => {
+            if (response.status !== 404) {
+                this.value = '';
+                current[2].value = '';
+                alert('No podemos agendar tu cita con la combinación fecha/hora seleccionada porque no está disponible, por favor elige otra fecha/hora.');
+            }
+        });
+});
 
 function loadEventListeners() {
     const checkoutButton = document.querySelector('#checkoutButton');
@@ -29,120 +41,98 @@ function loadEventListeners() {
 
     document.querySelector('#eyebrowExtension').addEventListener('change', () => {
         const eyebrowExtension = document.querySelector('#eyebrowExtension').value;
-        const eyebrowExtensionOption = document.querySelector('#eyebrowExtensionOption');
-        const eyebrowExtensionDate = document.querySelector('#eyebrowExtensionDate');
-        const eyebrowExtensionTime = document.querySelector('#eyebrowExtensionTime');
 
         if (eyebrowExtension !== '') {
-            eyebrowExtensionOption.removeAttribute("disabled");
-            eyebrowExtensionDate.removeAttribute("disabled");
-            eyebrowExtensionTime.removeAttribute("disabled");
+            document.querySelector('#eyebrowExtensionOption').removeAttribute("disabled");
+            document.querySelector('#eyebrowExtensionDate').removeAttribute("disabled");
+            document.querySelector('#eyebrowExtensionTime').removeAttribute("disabled");
         } else {
-            eyebrowExtensionOption.setAttribute("disabled", '');
-            eyebrowExtensionDate.setAttribute("disabled", '');
-            eyebrowExtensionTime.setAttribute("disabled", '');
+            document.querySelector('#eyebrowExtensionOption').setAttribute("disabled", '');
+            document.querySelector('#eyebrowExtensionDate').setAttribute("disabled", '');
+            document.querySelector('#eyebrowExtensionTime').setAttribute("disabled", '');
         }
     });
 
     document.querySelector('#hdEyebrow').addEventListener('change', () => {
         const hdEyebrow = document.querySelector('#hdEyebrow');
-        const hdEyebrowOption = document.querySelector('#hdEyebrowOption');
-        const hdEyebrowDate = document.querySelector('#hdEyebrowDate');
-        const hdEyebrowTime = document.querySelector('#hdEyebrowTime');
-
         if (hdEyebrow.checked === true) {
-            hdEyebrowOption.removeAttribute("disabled");
-            hdEyebrowDate.removeAttribute("disabled");
-            hdEyebrowTime.removeAttribute("disabled");
+            document.querySelector('#hdEyebrowOption').removeAttribute("disabled");
+            document.querySelector('#hdEyebrowDate').removeAttribute("disabled");
+            document.querySelector('#hdEyebrowTime').removeAttribute("disabled");
         } else {
-            hdEyebrowOption.setAttribute("disabled", '');
-            hdEyebrowDate.setAttribute("disabled", '');
-            hdEyebrowTime.setAttribute("disabled", '');
+            document.querySelector('#hdEyebrowOption').setAttribute("disabled", '');
+            document.querySelector('#hdEyebrowDate').setAttribute("disabled", '');
+            document.querySelector('#hdEyebrowTime').setAttribute("disabled", '');
         }
     });
 
     document.querySelector('#eyebrowIron').addEventListener('change', () => {
         const eyebrowIron = document.querySelector('#eyebrowIron');
-        const eyebrowIronOption = document.querySelector('#eyebrowIronOption');
-        const eyebrowIronDate = document.querySelector('#eyebrowIronDate');
-        const eyebrowIronTime = document.querySelector('#eyebrowIronTime');
 
         if (eyebrowIron.checked === true) {
-            eyebrowIronOption.removeAttribute("disabled");
-            eyebrowIronDate.removeAttribute("disabled");
-            eyebrowIronTime.removeAttribute("disabled");
+            document.querySelector('#eyebrowIronOption').removeAttribute("disabled");
+            document.querySelector('#eyebrowIronDate').removeAttribute("disabled");
+            document.querySelector('#eyebrowIronTime').removeAttribute("disabled");
         } else {
-            eyebrowIronOption.setAttribute("disabled", '');
-            eyebrowIronDate.setAttribute("disabled", '');
-            eyebrowIronTime.setAttribute("disabled", '');
+            document.querySelector('#eyebrowIronOption').setAttribute("disabled", '');
+            document.querySelector('#eyebrowIronDate').setAttribute("disabled", '');
+            document.querySelector('#eyebrowIronTime').setAttribute("disabled", '');
         }
     });
 
     document.querySelector('#colorEffect').addEventListener('change', () => {
         const colorEffect = document.querySelector('#colorEffect').value;
-        const colorEffectOption = document.querySelector('#colorEffectOption');
-        const colorEffectDate = document.querySelector('#colorEffectDate');
-        const colorEffectTime = document.querySelector('#colorEffectTime');
 
         if (colorEffect !== '') {
-            colorEffectOption.removeAttribute("disabled");
-            colorEffectDate.removeAttribute("disabled");
-            colorEffectTime.removeAttribute("disabled");
+            document.querySelector('#colorEffectOption').removeAttribute("disabled");
+            document.querySelector('#colorEffectDate').removeAttribute("disabled");
+            document.querySelector('#colorEffectTime').removeAttribute("disabled");
         } else {
-            colorEffectOption.setAttribute("disabled", '');
-            colorEffectDate.setAttribute("disabled", '');
-            colorEffectTime.setAttribute("disabled", '');
+            document.querySelector('#colorEffectOption').setAttribute("disabled", '');
+            document.querySelector('#colorEffectDate').setAttribute("disabled", '');
+            document.querySelector('#colorEffectTime').setAttribute("disabled", '');
         }
     });
 
     document.querySelector('#keratin').addEventListener('change', () => {
         const keratin = document.querySelector('#keratin');
-        const keratinOption = document.querySelector('#keratinOption');
-        const keratinDate = document.querySelector('#keratinDate');
-        const keratinTime = document.querySelector('#keratinTime');
 
         if (keratin.checked === true) {
-            keratinOption.removeAttribute("disabled");
-            keratinDate.removeAttribute("disabled");
-            keratinTime.removeAttribute("disabled");
+            document.querySelector('#keratinOption').removeAttribute("disabled");
+            document.querySelector('#keratinDate').removeAttribute("disabled");
+            document.querySelector('#keratinTime').removeAttribute("disabled");
         } else {
-            keratinOption.setAttribute("disabled", '');
-            keratinDate.setAttribute("disabled", '');
-            keratinTime.setAttribute("disabled", '');
+            document.querySelector('#keratinOption').setAttribute("disabled", '');
+            document.querySelector('#keratinDate').setAttribute("disabled", '');
+            document.querySelector('#keratinTime').setAttribute("disabled", '');
         }
     });
 
     document.querySelector('#microBlading').addEventListener('change', () => {
         const microBlading = document.querySelector('#microBlading');
-        const microBladingOption = document.querySelector('#microBladingOption');
-        const microBladingDate = document.querySelector('#microBladingDate');
-        const microBladingTime = document.querySelector('#microBladingTime');
 
         if (microBlading.checked === true) {
-            microBladingOption.removeAttribute("disabled");
-            microBladingDate.removeAttribute("disabled");
-            microBladingTime.removeAttribute("disabled");
+            document.querySelector('#microBladingOption').removeAttribute("disabled");
+            document.querySelector('#microBladingDate').removeAttribute("disabled");
+            document.querySelector('#microBladingTime').removeAttribute("disabled");
         } else {
-            microBladingOption.setAttribute("disabled", '');
-            microBladingDate.setAttribute("disabled", '');
-            microBladingTime.setAttribute("disabled", '');
+            document.querySelector('#microBladingOption').setAttribute("disabled", '');
+            document.querySelector('#microBladingDate').setAttribute("disabled", '');
+            document.querySelector('#microBladingTime').setAttribute("disabled", '');
         }
     });
 
     document.querySelector('#lashLift').addEventListener('change', () => {
         const lashLift = document.querySelector('#lashLift');
-        const lashLiftOption = document.querySelector('#lashLiftOption');
-        const lashLiftDate = document.querySelector('#lashLiftDate');
-        const lashLiftTime = document.querySelector('#lashLiftTime');
 
         if (lashLift.checked === true) {
-            lashLiftOption.removeAttribute("disabled");
-            lashLiftDate.removeAttribute("disabled");
-            lashLiftTime.removeAttribute("disabled");
+            document.querySelector('#lashLiftOption').removeAttribute("disabled");
+            document.querySelector('#lashLiftDate').removeAttribute("disabled");
+            document.querySelector('#lashLiftTime').removeAttribute("disabled");
         } else {
-            lashLiftOption.setAttribute("disabled", '');
-            lashLiftDate.setAttribute("disabled", '');
-            lashLiftTime.setAttribute("disabled", '');
+            document.querySelector('#lashLiftOption').setAttribute("disabled", '');
+            document.querySelector('#lashLiftDate').setAttribute("disabled", '');
+            document.querySelector('#lashLiftTime').setAttribute("disabled", '');
         }
     });
 
@@ -251,12 +241,47 @@ function loadEventListeners() {
                     window.location.replace('cancel.html');
                     console.error('Error:', error);
                 });
+        } else {
+            alert('Por favor selecciona la cita que deseas agendar');
+            checkoutButton.disabled = false;
         }
 
         e.preventDefault();
     });
 };
 
+// @@TODO Change DB structure to get rid of this 
+function mapServiceNames(id) {
+    const services = {
+        "eyebrowExtension": "Extensión de pestañas",
+        "hdEyebrow": "Cejas HD",
+        "eyebrowIron": "Planchado de ceja",
+        "colorEffect": "Efecto de color",
+        "keratin": "Keratina",
+        "microBlading": "Microblading",
+        "lashLift": "Lash lift",
+    };
+    return services[id];
+}
+
+async function checkDuplicated(name, date, time) {
+    let url = `http://${window.location.hostname}:3000/appointments`;
+    if (window.location.hostname !== '127.0.0.1') {
+        url = `https://ariah-server.herokuapp.com/appointments`;
+    }
+
+    const response = await fetch(`${url}/check/${name}/${date}/${time}`, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    });
+    const json = await response.json();
+
+    return json;
+}
+
 function invalidDate() {
+    // @@TODO Add modal instead
     alert('La fecha de tu cita no puede ser en días anteriores.');
 }
