@@ -146,14 +146,15 @@
                   </div>
 
                   <br>
-
                   <div class="row">
                     <div class="col-md-2">
                       Cejas HD $350
                     </div>
                     <div class="custom-control custom-switch col-md-1">
-                      <input type="checkbox" class="switch" name="hdEyebrow[]" data-field="hdEyebrow" id="hdEyebrow">
-                      <label class="custom-control-label" for="hdEyebrow"></label>
+                      <div class="ml-3">
+                        <input type="checkbox" class="switch" name="hdEyebrow[]" data-field="hdEyebrow" id="hdEyebrow">
+                        <label class="custom-control-label" for="hdEyebrow"></label>
+                      </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
@@ -186,9 +187,11 @@
                       Planchado de ceja $200
                     </div>
                     <div class="custom-control custom-switch col-md-1">
-                      <input type="checkbox" class="switch" name="eyebrowIron[]" data-field="eyebrowIron"
-                        id="eyebrowIron">
-                      <label class="custom-control-label" for="eyebrowIron"></label>
+                      <div class="ml-3">
+                        <input type="checkbox" class="switch" name="eyebrowIron[]" data-field="eyebrowIron"
+                          id="eyebrowIron">
+                        <label class="custom-control-label" for="eyebrowIron"></label>
+                      </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
@@ -260,8 +263,10 @@
                       <p>Keratina $1200 a $1500</p>
                     </div>
                     <div class="custom-control custom-switch col-md-1">
-                      <input type="checkbox" class="switch" id="keratin" data-field="keratin" name="keratin[]">
-                      <label class="custom-control-label" for="keratin"></label>
+                      <div class="ml-3">
+                        <input type="checkbox" class="switch" id="keratin" data-field="keratin" name="keratin[]">
+                        <label class="custom-control-label" for="keratin"></label>
+                      </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
@@ -294,9 +299,11 @@
                       Microblading $1000
                     </div>
                     <div class="custom-control custom-switch col-md-1">
-                      <input type="checkbox" class="switch" id="microBlading" name="microBlading[]"
-                        data-field="microBlading">
-                      <label class="custom-control-label" for="microBlading"></label>
+                      <div class="ml-3">
+                        <input type="checkbox" class="switch" id="microBlading" name="microBlading[]"
+                          data-field="microBlading">
+                        <label class="custom-control-label" for="microBlading"></label>
+                      </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
@@ -332,8 +339,10 @@
                       Lash lift $350
                     </div>
                     <div class="custom-control custom-switch col-md-1">
-                      <input type="checkbox" class="switch" id="lashLift" name="lashLift[]" data-field="lashLift">
-                      <label class="custom-control-label" for="lashLift"></label>
+                      <div class="ml-3">
+                        <input type="checkbox" class="switch" id="lashLift" name="lashLift[]" data-field="lashLift">
+                        <label class="custom-control-label" for="lashLift"></label>
+                      </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
@@ -370,6 +379,18 @@
       </div>
     </div>
   </section>
+
+  <div class="modal fade" id="messagesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body"><span id="textMessage"></span></div>
+        <div class="modal-footer">
+          <button class="btn btn-dark" type="button" data-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer id="main-footer" class="text-center p-4">

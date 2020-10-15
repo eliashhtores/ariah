@@ -7,31 +7,35 @@ const year = today.getFullYear();
 today = year + '-' + month + '-' + day;
 
 $('input[type=date]').on('change', function (e) {
+    const current = $(`[name="${this.name}"]`);
+    const serviceName = mapServiceNames(current[0].id);
+    const time = current[2].value;
+    const date = current[3].value;
+    let message;
+    checkDuplicated(serviceName, date, time)
+        .then(response => {
+            if (response.status !== 404) {
+                message = 'No podemos agendar tu cita con la combinación fecha/hora seleccionada porque no está disponible, por favor elige otra fecha/hora.';
+                displayModal(message);
+                this.value = '';
+                current[2].value = '';
+            }
+        });
+
     const day = new Date(this.value).getUTCDay();
     if (e.target.value < today) {
         e.preventDefault();
         this.value = '';
-        invalidDate();
+        message = 'La fecha de tu cita no puede ser en días anteriores.';
+        displayModal(message);
     }
 
     if ([1, 0].includes(day)) {
         e.preventDefault();
         this.value = '';
-        alert('No se permiten citas en lunes y domingo');
+        message = 'No se permiten citas en lunes o domingo.';
+        displayModal(message);
     }
-
-    const current = $(`[name="${this.name}"]`);
-    const serviceName = mapServiceNames(current[0].id);
-    const time = current[2].value;
-    const date = current[3].value;
-    checkDuplicated(serviceName, date, time)
-        .then(response => {
-            if (response.status !== 404) {
-                this.value = '';
-                current[2].value = '';
-                alert('No podemos agendar tu cita con la combinación fecha/hora seleccionada porque no está disponible, por favor elige otra fecha/hora.');
-            }
-        });
 });
 
 function loadEventListeners() {
@@ -242,7 +246,8 @@ function loadEventListeners() {
                     console.error('Error:', error);
                 });
         } else {
-            alert('Por favor selecciona la cita que deseas agendar');
+            message = 'Por favor selecciona la cita que deseas agendar';
+            displayModal(message)
             checkoutButton.disabled = false;
         }
 
@@ -281,7 +286,7 @@ async function checkDuplicated(name, date, time) {
     return json;
 }
 
-function invalidDate() {
-    // @@TODO Add modal instead
-    alert('La fecha de tu cita no puede ser en días anteriores.');
+function displayModal(message) {
+    document.querySelector('#textMessage').innerHTML = message;
+    $('#messagesModal').modal('show');
 }
