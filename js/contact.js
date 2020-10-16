@@ -47,100 +47,46 @@ function loadEventListeners() {
     checkoutButton.disabled = false;
     let formData = [];
 
-    document.querySelector('#eyebrowExtension').addEventListener('change', (e) => {
-        const eyebrowExtension = document.querySelector('#eyebrowExtension').value;
-        if (eyebrowExtension !== '') {
-            document.querySelector('#eyebrowExtensionOption').removeAttribute("disabled");
-            document.querySelector('#eyebrowExtensionDate').removeAttribute("disabled");
-            document.querySelector('#eyebrowExtensionTime').removeAttribute("disabled");
-        } else {
-            document.querySelector('#eyebrowExtensionOption').setAttribute("disabled", '');
-            document.querySelector('#eyebrowExtensionDate').setAttribute("disabled", '');
-            document.querySelector('#eyebrowExtensionTime').setAttribute("disabled", '');
-        }
+    document.querySelectorAll('.selector').forEach(item => {
+        item.addEventListener('change', e => {
+            const service = e.target.parentElement.parentElement.children[0].firstElementChild.value;
+            const option = e.target.parentElement.parentElement.children[1].firstElementChild.firstElementChild;
+            const date = e.target.parentElement.parentElement.children[2].firstElementChild;
+            const time = e.target.parentElement.parentElement.children[3].firstElementChild;
+
+            if (service !== '') {
+                option.removeAttribute("disabled");
+                date.removeAttribute("disabled");
+                time.removeAttribute("disabled");
+            } else {
+                option.setAttribute("disabled", '');
+                date.setAttribute("disabled", '');
+                date.value = '';
+                time.setAttribute("disabled", '');
+                time.value = '';
+            }
+        });
     });
 
-    document.querySelector('#hdEyebrow').addEventListener('change', () => {
-        const hdEyebrow = document.querySelector('#hdEyebrow');
-        if (hdEyebrow.checked === true) {
-            document.querySelector('#hdEyebrowOption').removeAttribute("disabled");
-            document.querySelector('#hdEyebrowDate').removeAttribute("disabled");
-            document.querySelector('#hdEyebrowTime').removeAttribute("disabled");
-        } else {
-            document.querySelector('#hdEyebrowOption').setAttribute("disabled", '');
-            document.querySelector('#hdEyebrowDate').setAttribute("disabled", '');
-            document.querySelector('#hdEyebrowTime').setAttribute("disabled", '');
-        }
-    });
+    document.querySelectorAll('.switch').forEach(item => {
+        item.addEventListener('change', e => {
+            const service = e.target.parentElement.parentElement.children[0].firstElementChild;
+            const option = e.target.parentElement.parentElement.parentElement.children[2].firstElementChild.firstElementChild;
+            const date = e.target.parentElement.parentElement.parentElement.children[3].firstElementChild;
+            const time = e.target.parentElement.parentElement.parentElement.children[4].firstElementChild;
 
-    document.querySelector('#eyebrowIron').addEventListener('change', () => {
-        const eyebrowIron = document.querySelector('#eyebrowIron');
-
-        if (eyebrowIron.checked === true) {
-            document.querySelector('#eyebrowIronOption').removeAttribute("disabled");
-            document.querySelector('#eyebrowIronDate').removeAttribute("disabled");
-            document.querySelector('#eyebrowIronTime').removeAttribute("disabled");
-        } else {
-            document.querySelector('#eyebrowIronOption').setAttribute("disabled", '');
-            document.querySelector('#eyebrowIronDate').setAttribute("disabled", '');
-            document.querySelector('#eyebrowIronTime').setAttribute("disabled", '');
-        }
-    });
-
-    document.querySelector('#colorEffect').addEventListener('change', () => {
-        const colorEffect = document.querySelector('#colorEffect').value;
-
-        if (colorEffect !== '') {
-            document.querySelector('#colorEffectOption').removeAttribute("disabled");
-            document.querySelector('#colorEffectDate').removeAttribute("disabled");
-            document.querySelector('#colorEffectTime').removeAttribute("disabled");
-        } else {
-            document.querySelector('#colorEffectOption').setAttribute("disabled", '');
-            document.querySelector('#colorEffectDate').setAttribute("disabled", '');
-            document.querySelector('#colorEffectTime').setAttribute("disabled", '');
-        }
-    });
-
-    document.querySelector('#keratin').addEventListener('change', () => {
-        const keratin = document.querySelector('#keratin');
-
-        if (keratin.checked === true) {
-            document.querySelector('#keratinOption').removeAttribute("disabled");
-            document.querySelector('#keratinDate').removeAttribute("disabled");
-            document.querySelector('#keratinTime').removeAttribute("disabled");
-        } else {
-            document.querySelector('#keratinOption').setAttribute("disabled", '');
-            document.querySelector('#keratinDate').setAttribute("disabled", '');
-            document.querySelector('#keratinTime').setAttribute("disabled", '');
-        }
-    });
-
-    document.querySelector('#microBlading').addEventListener('change', () => {
-        const microBlading = document.querySelector('#microBlading');
-
-        if (microBlading.checked === true) {
-            document.querySelector('#microBladingOption').removeAttribute("disabled");
-            document.querySelector('#microBladingDate').removeAttribute("disabled");
-            document.querySelector('#microBladingTime').removeAttribute("disabled");
-        } else {
-            document.querySelector('#microBladingOption').setAttribute("disabled", '');
-            document.querySelector('#microBladingDate').setAttribute("disabled", '');
-            document.querySelector('#microBladingTime').setAttribute("disabled", '');
-        }
-    });
-
-    document.querySelector('#lashLift').addEventListener('change', () => {
-        const lashLift = document.querySelector('#lashLift');
-
-        if (lashLift.checked === true) {
-            document.querySelector('#lashLiftOption').removeAttribute("disabled");
-            document.querySelector('#lashLiftDate').removeAttribute("disabled");
-            document.querySelector('#lashLiftTime').removeAttribute("disabled");
-        } else {
-            document.querySelector('#lashLiftOption').setAttribute("disabled", '');
-            document.querySelector('#lashLiftDate').setAttribute("disabled", '');
-            document.querySelector('#lashLiftTime').setAttribute("disabled", '');
-        }
+            if (service.checked === true) {
+                option.removeAttribute("disabled");
+                date.removeAttribute("disabled");
+                time.removeAttribute("disabled");
+            } else {
+                option.setAttribute("disabled", '');
+                date.setAttribute("disabled", '');
+                date.value = '';
+                time.setAttribute("disabled", '');
+                time.value = '';
+            }
+        });
     });
 
     document.querySelector('form').addEventListener('submit', function (e) {
