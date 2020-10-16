@@ -1,51 +1,54 @@
 loadEventListeners();
+validateDateTime();
 
-let today = new Date();
-const day = String(today.getDate()).padStart(2, '0');
-const month = String(today.getMonth() + 1).padStart(2, '0');
-const year = today.getFullYear();
-today = year + '-' + month + '-' + day;
+function validateDateTime() {
+    let today = new Date();
+    const time = today.getHours() + ":" + today.getMinutes();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const year = today.getFullYear();
+    today = year + '-' + month + '-' + day;
 
-$('input[type=date]').on('change', function (e) {
-    const current = $(`[name="${this.name}"]`);
-    const serviceName = mapServiceNames(current[0].id);
-    const time = current[2].value;
-    const date = current[3].value;
-    let message;
-    checkDuplicated(serviceName, date, time)
-        .then(response => {
-            if (response.status !== 404) {
-                message = 'No podemos agendar tu cita con la combinación fecha/hora seleccionada porque no está disponible, por favor elige otra fecha/hora.';
-                displayModal(message);
-                this.value = '';
-                current[2].value = '';
-            }
-        });
+    $('input[type=date]').on('change', function (e) {
+        const current = $(`[name="${this.name}"]`);
+        const serviceName = mapServiceNames(current[0].id);
+        const time = current[2].value;
+        const date = current[3].value;
+        let message;
+        checkDuplicated(serviceName, date, time)
+            .then(response => {
+                if (response.status !== 404) {
+                    message = 'No podemos agendar tu cita con la combinación fecha/hora seleccionada porque no está disponible, por favor elige otra fecha/hora.';
+                    displayModal(message);
+                    this.value = '';
+                    current[2].value = '';
+                }
+            });
 
-    const day = new Date(this.value).getUTCDay();
-    if (e.target.value < today) {
-        e.preventDefault();
-        this.value = '';
-        message = 'La fecha de tu cita no puede ser en días anteriores.';
-        displayModal(message);
-    }
+        const day = new Date(this.value).getUTCDay();
+        if (e.target.value < today) {
+            e.preventDefault();
+            this.value = '';
+            message = 'La fecha de tu cita no puede ser en días anteriores.';
+            displayModal(message);
+        }
 
-    if ([1, 0].includes(day)) {
-        e.preventDefault();
-        this.value = '';
-        message = 'No se permiten citas en lunes o domingo.';
-        displayModal(message);
-    }
-});
+        if ([1, 0].includes(day)) {
+            e.preventDefault();
+            this.value = '';
+            message = 'No se permiten citas en lunes o domingo.';
+            displayModal(message);
+        }
+    });
+}
 
 function loadEventListeners() {
     const checkoutButton = document.querySelector('#checkoutButton');
     checkoutButton.disabled = false;
     let formData = [];
 
-    document.querySelector('#eyebrowExtension').addEventListener('change', () => {
+    document.querySelector('#eyebrowExtension').addEventListener('change', (e) => {
         const eyebrowExtension = document.querySelector('#eyebrowExtension').value;
-
         if (eyebrowExtension !== '') {
             document.querySelector('#eyebrowExtensionOption').removeAttribute("disabled");
             document.querySelector('#eyebrowExtensionDate').removeAttribute("disabled");
@@ -255,7 +258,7 @@ function loadEventListeners() {
     });
 };
 
-// @@TODO Change DB structure to get rid of this 
+// @TODO Change DB structure to get rid of this 
 function mapServiceNames(id) {
     const services = {
         "eyebrowExtension": "Extensión de pestañas",
