@@ -23,6 +23,9 @@ function validateDateTime() {
                     this.value = '';
                     current[2].value = '';
                 }
+            })
+            .catch((error) => {
+                console.error(error);
             });
 
         const day = new Date(this.value).getUTCDay();

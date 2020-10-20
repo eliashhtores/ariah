@@ -1,3 +1,6 @@
+// Call this in case the server is idle
+wakeUpServer();
+
 // Get the current year for the copyright
 $('#year').text(new Date().getFullYear());
 
@@ -27,6 +30,22 @@ $(function () {
     });
 });
 
-function deleteSession() {
-    localStorage.removeItem('appointment');
+async function wakeUpServer() {
+    let url = `http://${window.location.hostname}:3000/appointments`;
+    if (window.location.hostname !== '127.0.0.1') {
+        url = `https://ariah-server.herokuapp.com/appointments`;
+    }
+
+    await fetch(`${url}/5f6ba573c5ab8a2180f789a0`, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.error('Error:', error);
+        });
 }
