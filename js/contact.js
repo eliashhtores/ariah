@@ -22,9 +22,7 @@ function validateDateTime() {
             this.value = '';
             message = 'No se permiten citas en lunes o domingo.';
             displayModal(message);
-        }
-
-        if (time == '') {
+        } else if (time == '') {
             message = 'Por favor, selecciona primero la hora de tu cita.';
             displayModal(message);
             this.value = '';
