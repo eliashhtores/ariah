@@ -11,36 +11,42 @@ function validateDateTime() {
 
     $('input[type=date]').on('change', function (e) {
         const current = $(`[name="${this.name}"]`);
+        const day = new Date(this.value).getUTCDay();
         const serviceName = mapServiceNames(current[0].id);
         const time = current[2].value;
         const date = current[3].value;
         let message;
-        checkDuplicated(serviceName, date, time)
-            .then(response => {
-                if (response.status !== 404) {
-                    message = 'No podemos agendar tu cita con la combinación fecha/hora seleccionada porque no está disponible, por favor elige otra fecha/hora.';
-                    displayModal(message);
-                    this.value = '';
-                    current[2].value = '';
-                }
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-
-        const day = new Date(this.value).getUTCDay();
-        if (e.target.value < today) {
-            e.preventDefault();
-            this.value = '';
-            message = 'La fecha de tu cita no puede ser en días anteriores.';
-            displayModal(message);
-        }
 
         if ([1, 0].includes(day)) {
             e.preventDefault();
             this.value = '';
             message = 'No se permiten citas en lunes o domingo.';
             displayModal(message);
+        }
+
+        if (time == '') {
+            message = 'Por favor, selecciona primero la hora de tu cita.';
+            displayModal(message);
+            this.value = '';
+            current[2].value = '';
+        } else if (e.target.value < today) {
+            e.preventDefault();
+            this.value = '';
+            message = 'La fecha de tu cita no puede ser en días anteriores.';
+            displayModal(message);
+        } else {
+            checkDuplicated(serviceName, date, time)
+                .then(response => {
+                    if (response.status !== 404) {
+                        message = 'No podemos agendar tu cita con la combinación fecha/hora seleccionada porque no está disponible, por favor elige otra fecha/hora.';
+                        displayModal(message);
+                        this.value = '';
+                        current[2].value = '';
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         }
     });
 }
