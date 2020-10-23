@@ -17,10 +17,10 @@ function validateDateTime() {
         const date = current[3].value;
         let message;
 
-        if ([1, 0].includes(day)) {
+        if ([0].includes(day)) {
             e.preventDefault();
             this.value = '';
-            message = 'No se permiten citas en lunes o domingo.';
+            message = 'No se permiten citas en domingo.';
             displayModal(message);
         } else if (time == '') {
             message = 'Por favor, selecciona primero la hora de tu cita.';
