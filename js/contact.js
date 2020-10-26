@@ -1,7 +1,7 @@
 loadEventListeners();
-validateDateTime();
+validateDate();
 
-function validateDateTime() {
+function validateDate() {
     let today = new Date();
     const time = today.getHours() + ":" + today.getMinutes();
     const day = String(today.getDate()).padStart(2, '0');
@@ -13,33 +13,34 @@ function validateDateTime() {
         const current = $(`[name="${this.name}"]`);
         const day = new Date(this.value).getUTCDay();
         const serviceName = mapServiceNames(current[0].id);
-        const time = current[2].value;
-        const date = current[3].value;
+        const time = current[3];
+        const date = current[2];
         let message;
+
+        time.value = '';
+        Object.keys(time).forEach(function (key) {
+            time[key].style.display = 'block';
+        });
 
         if ([0].includes(day)) {
             e.preventDefault();
             this.value = '';
             message = 'No se permiten citas en domingo.';
             displayModal(message);
-        } else if (time == '') {
-            message = 'Por favor, selecciona primero la hora de tu cita.';
-            displayModal(message);
-            this.value = '';
-            current[2].value = '';
         } else if (e.target.value < today) {
             e.preventDefault();
             this.value = '';
             message = 'La fecha de tu cita no puede ser en días anteriores.';
             displayModal(message);
         } else {
-            checkDuplicated(serviceName, date, time)
+            time.removeAttribute("disabled");
+            checkDuplicated(serviceName, date.value)
                 .then(response => {
-                    if (response.status !== 404) {
-                        message = 'No podemos agendar tu cita con la combinación fecha/hora seleccionada porque no está disponible, por favor elige otra fecha/hora.';
-                        displayModal(message);
+                    const availableTimes = validateTime(time, response);
+                    if (availableTimes === 1) {
                         this.value = '';
-                        current[2].value = '';
+                        message = 'Lo sentimos, no tenemos dispobilidad para agendar tu cita en el día seleccionado. Por favor selecciona otro día.';
+                        displayModal(message);
                     }
                 })
                 .catch((error) => {
@@ -47,6 +48,19 @@ function validateDateTime() {
                 });
         }
     });
+}
+
+function validateTime(time, response) {
+    let counter = 0;
+    for (let i = time.length - 1; i >= 0; i--) {
+        Object.keys(response).forEach(function (key) {
+            if (response[key] == time[i].value) {
+                time[i].style.display = 'none';
+                counter++;
+            }
+        });
+    }
+    return time.length - counter;
 }
 
 function loadEventListeners() {
@@ -64,7 +78,6 @@ function loadEventListeners() {
             if (service !== '') {
                 option.removeAttribute("disabled");
                 date.removeAttribute("disabled");
-                time.removeAttribute("disabled");
             } else {
                 option.setAttribute("disabled", '');
                 date.setAttribute("disabled", '');
@@ -113,8 +126,8 @@ function loadEventListeners() {
                 "name": "Extensión de pestañas",
                 "type": eyebrowExtensionAppointment[0].value,
                 "option": eyebrowExtensionAppointment[1].value,
-                "time": eyebrowExtensionAppointment[2].value,
-                "date": eyebrowExtensionAppointment[3].value
+                "date": eyebrowExtensionAppointment[2].value,
+                "time": eyebrowExtensionAppointment[3].value
             });
         }
 
@@ -122,8 +135,8 @@ function loadEventListeners() {
             formData.push({
                 "name": "Cejas HD",
                 "option": hdEyebrowAppointment[1].value,
-                "time": hdEyebrowAppointment[2].value,
-                "date": hdEyebrowAppointment[3].value
+                "date": hdEyebrowAppointment[2].value,
+                "time": hdEyebrowAppointment[3].value
             });
         }
 
@@ -131,8 +144,8 @@ function loadEventListeners() {
             formData.push({
                 "name": "Planchado de ceja",
                 "option": eyebrowIronAppointment[1].value,
-                "time": eyebrowIronAppointment[2].value,
-                "date": eyebrowIronAppointment[3].value
+                "date": eyebrowIronAppointment[2].value,
+                "time": eyebrowIronAppointment[3].value
             });
         }
 
@@ -141,8 +154,8 @@ function loadEventListeners() {
                 "name": "Efecto de color",
                 "type": colorEffectAppointment[0].value,
                 "option": colorEffectAppointment[1].value,
-                "time": colorEffectAppointment[2].value,
-                "date": colorEffectAppointment[3].value
+                "date": colorEffectAppointment[2].value,
+                "time": colorEffectAppointment[3].value
             });
         }
 
@@ -150,8 +163,8 @@ function loadEventListeners() {
             formData.push({
                 "name": "Keratina",
                 "option": keratinAppointment[1].value,
-                "time": keratinAppointment[2].value,
-                "date": keratinAppointment[3].value
+                "date": keratinAppointment[2].value,
+                "time": keratinAppointment[3].value
             });
         }
 
@@ -159,8 +172,8 @@ function loadEventListeners() {
             formData.push({
                 "name": "Microblading",
                 "option": microBladingAppointment[1].value,
-                "time": microBladingAppointment[2].value,
-                "date": microBladingAppointment[3].value
+                "date": microBladingAppointment[2].value,
+                "time": microBladingAppointment[3].value
             });
         }
 
@@ -168,8 +181,8 @@ function loadEventListeners() {
             formData.push({
                 "name": "Lash lift",
                 "option": lashLiftAppointment[1].value,
-                "time": lashLiftAppointment[2].value,
-                "date": lashLiftAppointment[3].value
+                "date": lashLiftAppointment[2].value,
+                "time": lashLiftAppointment[3].value
             });
         }
 
@@ -225,13 +238,13 @@ function mapServiceNames(id) {
     return services[id];
 }
 
-async function checkDuplicated(name, date, time) {
+async function checkDuplicated(name, date) {
     let url = `http://${window.location.hostname}:3000/appointments`;
     if (window.location.hostname !== '127.0.0.1') {
         url = `https://ariah-server.herokuapp.com/appointments`;
     }
 
-    const response = await fetch(`${url}/check/${name}/${date}/${time}`, {
+    const response = await fetch(`${url}/check/${name}/${date}`, {
         method: 'GET',
         headers: {
             'Content-type': 'application/json; charset=UTF-8'
