@@ -199,6 +199,11 @@ function loadEventListeners() {
                 host = `https://ariah-server.herokuapp.com`;
             }
 
+            const storage = localStorage;
+            let appointment = [];
+            appointment.push(data);
+            storage.setItem("appointment", JSON.stringify(appointment[0]));
+
             fetch(`${host}/appointments`, {
                 method: 'POST',
                 body: JSON.stringify(data),

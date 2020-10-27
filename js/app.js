@@ -49,3 +49,7 @@ async function wakeUpServer() {
             console.error('Error:', error);
         });
 }
+
+function deleteSession() {
+    localStorage.removeItem('appointment');
+}
