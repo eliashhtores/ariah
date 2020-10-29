@@ -19,8 +19,8 @@ function validateDate() {
 
         time.value = '';
         Object.keys(time).forEach(function (key) {
-            // time[key].style.display = 'block';
-            time[key].hidden = false;;
+            time[key].hidden = false;
+            time[key].disabled = false;;
         });
 
         if ([0].includes(day)) {
@@ -56,8 +56,8 @@ function getValidTimes(time, response) {
     for (let i = time.length - 1; i >= 0; i--) {
         Object.keys(response).forEach(function (key) {
             if (response[key] == time[i].value) {
-                time[i].hidden = true;;
-                // time[i].style.opacity = "0";
+                time[i].hidden = true;
+                time[i].disabled = true;
                 counter++;
             }
         });
