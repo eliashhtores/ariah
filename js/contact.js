@@ -19,7 +19,8 @@ function validateDate() {
 
         time.value = '';
         Object.keys(time).forEach(function (key) {
-            time[key].style.display = 'block';
+            // time[key].style.display = 'block';
+            time[key].hidden = false;;
         });
 
         if ([0].includes(day)) {
@@ -36,7 +37,7 @@ function validateDate() {
             time.removeAttribute("disabled");
             checkDuplicated(serviceName, date.value)
                 .then(response => {
-                    const availableTimes = validateTime(time, response);
+                    const availableTimes = getValidTimes(time, response);
                     if (availableTimes === 1) {
                         this.value = '';
                         message = 'Lo sentimos, no tenemos dispobilidad para agendar tu cita en el día seleccionado. Por favor selecciona otro día.';
@@ -50,12 +51,13 @@ function validateDate() {
     });
 }
 
-function validateTime(time, response) {
+function getValidTimes(time, response) {
     let counter = 0;
     for (let i = time.length - 1; i >= 0; i--) {
         Object.keys(response).forEach(function (key) {
             if (response[key] == time[i].value) {
-                time[i].style.display = 'none';
+                time[i].hidden = true;;
+                // time[i].style.opacity = "0";
                 counter++;
             }
         });
