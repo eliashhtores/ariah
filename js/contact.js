@@ -3,7 +3,6 @@ validateDate();
 
 function validateDate() {
     let today = new Date();
-    const time = today.getHours() + ":" + today.getMinutes();
     const day = String(today.getDate()).padStart(2, '0');
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const year = today.getFullYear();
@@ -12,7 +11,7 @@ function validateDate() {
     $('input[type=date]').on('change', function (e) {
         const current = $(`[name="${this.name}"]`);
         const day = new Date(this.value).getUTCDay();
-        const serviceName = mapServiceNames(current[0].id);
+        const short = current[0].id;
         const time = current[3];
         const date = current[2];
         let message;
@@ -35,7 +34,7 @@ function validateDate() {
             displayModal(message);
         } else {
             time.removeAttribute("disabled");
-            checkDuplicated(serviceName, date.value)
+            checkDuplicated(short, date.value)
                 .then(response => {
                     const availableTimes = getValidTimes(time, response);
                     if (availableTimes === 1) {
@@ -125,6 +124,7 @@ function loadEventListeners() {
 
         if (eyebrowExtensionAppointment[2].value !== '') {
             formData.push({
+                "short": eyebrowExtensionAppointment[0].id,
                 "name": "Extensión de pestañas",
                 "type": eyebrowExtensionAppointment[0].value,
                 "option": eyebrowExtensionAppointment[1].value,
@@ -135,6 +135,7 @@ function loadEventListeners() {
 
         if (hdEyebrowAppointment[2].value !== '') {
             formData.push({
+                "short": hdEyebrowAppointment[0].id,
                 "name": "Cejas HD",
                 "option": hdEyebrowAppointment[1].value,
                 "date": hdEyebrowAppointment[2].value,
@@ -144,6 +145,7 @@ function loadEventListeners() {
 
         if (eyebrowIronAppointment[2].value !== '') {
             formData.push({
+                "short": eyebrowIronAppointment[0].id,
                 "name": "Planchado de ceja",
                 "option": eyebrowIronAppointment[1].value,
                 "date": eyebrowIronAppointment[2].value,
@@ -153,6 +155,7 @@ function loadEventListeners() {
 
         if (colorEffectAppointment[2].value !== '') {
             formData.push({
+                "short": colorEffectAppointment[0].id,
                 "name": "Efecto de color",
                 "type": colorEffectAppointment[0].value,
                 "option": colorEffectAppointment[1].value,
@@ -163,6 +166,7 @@ function loadEventListeners() {
 
         if (keratinAppointment[2].value !== '') {
             formData.push({
+                "short": keratinAppointment[0].id,
                 "name": "Keratina",
                 "option": keratinAppointment[1].value,
                 "date": keratinAppointment[2].value,
@@ -172,6 +176,7 @@ function loadEventListeners() {
 
         if (microBladingAppointment[2].value !== '') {
             formData.push({
+                "short": microBladingAppointment[0].id,
                 "name": "Microblading",
                 "option": microBladingAppointment[1].value,
                 "date": microBladingAppointment[2].value,
@@ -181,6 +186,7 @@ function loadEventListeners() {
 
         if (lashLiftAppointment[2].value !== '') {
             formData.push({
+                "short": lashLiftAppointment[0].id,
                 "name": "Lash lift",
                 "option": lashLiftAppointment[1].value,
                 "date": lashLiftAppointment[2].value,
@@ -192,6 +198,7 @@ function loadEventListeners() {
         data["phone"] = document.querySelector('#phone').value;
         data["email"] = document.querySelector('#email').value !== '' ? document.querySelector('#email').value : '';
         data["services"] = formData;
+        console.log(formData);
 
         if (formData.length > 0) {
             checkoutButton.disabled = true;
@@ -231,27 +238,13 @@ function loadEventListeners() {
     });
 };
 
-// @TODO Change DB structure to get rid of this 
-function mapServiceNames(id) {
-    const services = {
-        "eyebrowExtension": "Extensión de pestañas",
-        "hdEyebrow": "Cejas HD",
-        "eyebrowIron": "Planchado de ceja",
-        "colorEffect": "Efecto de color",
-        "keratin": "Keratina",
-        "microBlading": "Microblading",
-        "lashLift": "Lash lift",
-    };
-    return services[id];
-}
-
-async function checkDuplicated(name, date) {
+async function checkDuplicated(short, date) {
     let url = `http://${window.location.hostname}:3000/appointments`;
     if (window.location.hostname !== '127.0.0.1') {
         url = `https://ariah-server.herokuapp.com/appointments`;
     }
 
-    const response = await fetch(`${url}/check/${name}/${date}`, {
+    const response = await fetch(`${url}/check/${short}/${date}`, {
         method: 'GET',
         headers: {
             'Content-type': 'application/json; charset=UTF-8'
