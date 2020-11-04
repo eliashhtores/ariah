@@ -3,7 +3,7 @@ const appointments = document.querySelector('#appointments');
 window.onload = function () {
 
     const loaderWrapper = document.querySelector('.loader-wrapper');
-    loaderWrapper.style.transition = '0.8s';
+    loaderWrapper.style.transition = '1.8s';
     loaderWrapper.style.opacity = 0;
 
     let today = new Date();
