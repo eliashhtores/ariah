@@ -1,6 +1,10 @@
 const appointments = document.querySelector('#appointments');
 
 window.onload = function () {
+
+    document.querySelector('.loader-wrapper').style.transition = '0.8s';
+    document.querySelector('.loader-wrapper').style.opacity = 0;
+
     let today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
     const month = String(today.getMonth() + 1).padStart(2, '0');
