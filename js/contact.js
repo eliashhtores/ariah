@@ -1,7 +1,6 @@
 loadEventListeners();
 validateDate();
-
-const forbidden = ["2020-12-24", "2020-12-25", "2021-01-01"];
+const forbiddenDates = ["12-24", "12-25", "01-01"];
 
 function validateDate() {
     let today = new Date();
@@ -36,7 +35,7 @@ function validateDate() {
             displayModal(message);
         } else {
             time.removeAttribute("disabled");
-            if (forbidden.includes(date.value)) {
+            if (forbiddenDates.includes(date.value.slice(5, 10))) {
                 this.value = '';
                 message = 'Lo sentimos, no tenemos dispobilidad para agendar tu cita en el día seleccionado. Por favor selecciona otro día.';
                 displayModal(message);
