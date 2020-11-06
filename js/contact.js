@@ -1,7 +1,6 @@
 loadEventListeners();
 validateDate();
-
-let service, option, date, time;
+const forbiddenDates = ["12-24", "12-25", "01-01"];
 
 function validateDate() {
     let today = new Date();
@@ -36,30 +35,29 @@ function validateDate() {
             displayModal(message);
         } else {
             time.removeAttribute("disabled");
-            checkDuplicated(short, date.value)
-                .then(response => {
-                    const availableTimes = getValidTimes(time, response, short);
-                    if (availableTimes === 1) {
-                        this.value = '';
-                        message = 'Lo sentimos, no tenemos dispobilidad para agendar tu cita en el día seleccionado. Por favor selecciona otro día.';
-                        displayModal(message);
-                    }
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+            if (forbiddenDates.includes(date.value.slice(5, 10))) {
+                this.value = '';
+                message = 'Lo sentimos, no tenemos dispobilidad para agendar tu cita en el día seleccionado. Por favor selecciona otro día.';
+                displayModal(message);
+            } else {
+                checkDuplicated(short, date.value)
+                    .then(response => {
+                        const availableTimes = getValidTimes(time, response);
+                        if (availableTimes === 1) {
+                            this.value = '';
+                            message = 'Lo sentimos, no tenemos dispobilidad para agendar tu cita en el día seleccionado. Por favor selecciona otro día.';
+                            displayModal(message);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
         }
     });
 }
 
-function getValidTimes(time, response, short) {
-    try {
-        const index = (element) => element = short;
-        console.log(response[0]._id["short"].findIndex(index));
-        // console.log(response[0]._id["short"].includes(short));
-    } catch (error) {
-    }
-
+function getValidTimes(time, response) {
     let counter = 0;
     for (let i = time.length - 1; i >= 0; i--) {
         Object.keys(response).forEach(function (key) {
@@ -80,10 +78,10 @@ function loadEventListeners() {
 
     document.querySelectorAll('.selector').forEach(item => {
         item.addEventListener('change', e => {
-            service = e.target.parentElement.parentElement.children[0].firstElementChild.value;
-            option = e.target.parentElement.parentElement.children[1].firstElementChild.firstElementChild;
-            date = e.target.parentElement.parentElement.children[2].firstElementChild;
-            time = e.target.parentElement.parentElement.children[3].firstElementChild;
+            const service = e.target.parentElement.parentElement.children[0].firstElementChild.value;
+            const option = e.target.parentElement.parentElement.children[1].firstElementChild.firstElementChild;
+            const date = e.target.parentElement.parentElement.children[2].firstElementChild;
+            const time = e.target.parentElement.parentElement.children[3].firstElementChild;
 
             if (service !== '') {
                 option.removeAttribute("disabled");
@@ -100,14 +98,15 @@ function loadEventListeners() {
 
     document.querySelectorAll('.switch').forEach(item => {
         item.addEventListener('change', e => {
-            service = e.target.parentElement.parentElement.children[0].firstElementChild;
-            option = e.target.parentElement.parentElement.parentElement.children[2].firstElementChild.firstElementChild;
-            date = e.target.parentElement.parentElement.parentElement.children[3].firstElementChild;
-            time = e.target.parentElement.parentElement.parentElement.children[4].firstElementChild;
+            const service = e.target.parentElement.parentElement.children[0].firstElementChild;
+            const option = e.target.parentElement.parentElement.parentElement.children[2].firstElementChild.firstElementChild;
+            const date = e.target.parentElement.parentElement.parentElement.children[3].firstElementChild;
+            const time = e.target.parentElement.parentElement.parentElement.children[4].firstElementChild;
 
             if (service.checked === true) {
                 option.removeAttribute("disabled");
                 date.removeAttribute("disabled");
+                time.removeAttribute("disabled");
             } else {
                 option.setAttribute("disabled", '');
                 date.setAttribute("disabled", '');
