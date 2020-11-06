@@ -1,6 +1,8 @@
 loadEventListeners();
 validateDate();
 
+const forbidden = ["2020-12-24", "2020-12-25", "2021-01-01"];
+
 function validateDate() {
     let today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
@@ -34,18 +36,24 @@ function validateDate() {
             displayModal(message);
         } else {
             time.removeAttribute("disabled");
-            checkDuplicated(short, date.value)
-                .then(response => {
-                    const availableTimes = getValidTimes(time, response);
-                    if (availableTimes === 1) {
-                        this.value = '';
-                        message = 'Lo sentimos, no tenemos dispobilidad para agendar tu cita en el día seleccionado. Por favor selecciona otro día.';
-                        displayModal(message);
-                    }
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+            if (forbidden.includes(date.value)) {
+                this.value = '';
+                message = 'Lo sentimos, no tenemos dispobilidad para agendar tu cita en el día seleccionado. Por favor selecciona otro día.';
+                displayModal(message);
+            } else {
+                checkDuplicated(short, date.value)
+                    .then(response => {
+                        const availableTimes = getValidTimes(time, response);
+                        if (availableTimes === 1) {
+                            this.value = '';
+                            message = 'Lo sentimos, no tenemos dispobilidad para agendar tu cita en el día seleccionado. Por favor selecciona otro día.';
+                            displayModal(message);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
         }
     });
 }
