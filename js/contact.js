@@ -1,6 +1,7 @@
 loadEventListeners();
 validateDate();
 const forbiddenDates = ["12-24", "12-25", "01-01"];
+let service, option, date, time;
 
 function validateDate() {
     let today = new Date();
@@ -76,23 +77,9 @@ function loadEventListeners() {
     checkoutButton.disabled = false;
     let formData = [];
 
-    document.querySelectorAll('.selector').forEach(item => {
+    document.querySelectorAll('.selector, .switch').forEach(item => {
         item.addEventListener('change', e => {
-            const service = e.target.parentElement.parentElement.children[0].firstElementChild.value;
-            const option = e.target.parentElement.parentElement.children[1].firstElementChild.firstElementChild;
-            const date = e.target.parentElement.parentElement.children[2].firstElementChild;
-            const time = e.target.parentElement.parentElement.children[3].firstElementChild;
-
-            if (service !== '') {
-                option.removeAttribute("disabled");
-                date.removeAttribute("disabled");
-            } else {
-                option.setAttribute("disabled", '');
-                date.setAttribute("disabled", '');
-                date.value = '';
-                time.setAttribute("disabled", '');
-                time.value = '';
-            }
+            updateDOM(e);
         });
     });
 
@@ -266,4 +253,31 @@ async function checkDuplicated(short, date) {
 function displayModal(message) {
     document.querySelector('#textMessage').innerHTML = message;
     $('#messagesModal').modal('show');
+}
+
+function updateDOM(e) {
+    let service, option, date, time;
+
+    if (e.target.classList.contains('selector')) {
+        service = e.target.parentElement.parentElement.children[0].firstElementChild.value;
+        option = e.target.parentElement.parentElement.children[1].firstElementChild.firstElementChild;
+        date = e.target.parentElement.parentElement.children[2].firstElementChild;
+        time = e.target.parentElement.parentElement.children[3].firstElementChild;
+    } else {
+        service = e.target.parentElement.parentElement.children[0].firstElementChild;
+        option = e.target.parentElement.parentElement.parentElement.children[2].firstElementChild.firstElementChild;
+        date = e.target.parentElement.parentElement.parentElement.children[3].firstElementChild;
+        time = e.target.parentElement.parentElement.parentElement.children[4].firstElementChild;
+    }
+
+    if (service !== '' || service.checked === true) {
+        option.removeAttribute("disabled");
+        date.removeAttribute("disabled");
+    } else {
+        option.setAttribute("disabled", '');
+        date.setAttribute("disabled", '');
+        date.value = '';
+        time.setAttribute("disabled", '');
+        time.value = '';
+    }
 }
