@@ -43,7 +43,7 @@ function validateDate() {
             } else {
                 checkDuplicated(short, date.value)
                     .then(response => {
-                        const availableTimes = getValidTimes(time, response);
+                        const availableTimes = getValidTimes(time, response, short);
                         if (availableTimes === 1) {
                             this.value = '';
                             message = 'Lo sentimos, no tenemos dispobilidad para agendar tu cita en el día seleccionado. Por favor selecciona otro día.';
@@ -58,14 +58,25 @@ function validateDate() {
     });
 }
 
-function getValidTimes(time, response) {
+function getValidTimes(time, response, short) {
+    const index = (element) => element == short;
     let counter = 0;
+    let service;
+
+    try {
+        service = response[0]._id["short"].findIndex(index);
+    } catch (error) {
+    }
+
     for (let i = time.length - 1; i >= 0; i--) {
-        Object.keys(response).forEach(function (key) {
-            if (response[key] == time[i].value) {
-                time[i].hidden = true;
-                time[i].disabled = true;
-                counter++;
+        Object.keys(response).forEach(function () {
+            try {
+                if (time[i].value == response[0]._id["time"][service]) {
+                    time[i].hidden = true;
+                    time[i].disabled = true;
+                    counter++;
+                }
+            } catch (error) {
             }
         });
     }
@@ -80,27 +91,6 @@ function loadEventListeners() {
     document.querySelectorAll('.selector, .switch').forEach(item => {
         item.addEventListener('change', e => {
             updateDOM(e);
-        });
-    });
-
-    document.querySelectorAll('.switch').forEach(item => {
-        item.addEventListener('change', e => {
-            const service = e.target.parentElement.parentElement.children[0].firstElementChild;
-            const option = e.target.parentElement.parentElement.parentElement.children[2].firstElementChild.firstElementChild;
-            const date = e.target.parentElement.parentElement.parentElement.children[3].firstElementChild;
-            const time = e.target.parentElement.parentElement.parentElement.children[4].firstElementChild;
-
-            if (service.checked === true) {
-                option.removeAttribute("disabled");
-                date.removeAttribute("disabled");
-                time.removeAttribute("disabled");
-            } else {
-                option.setAttribute("disabled", '');
-                date.setAttribute("disabled", '');
-                date.value = '';
-                time.setAttribute("disabled", '');
-                time.value = '';
-            }
         });
     });
 
@@ -193,7 +183,6 @@ function loadEventListeners() {
         data["phone"] = document.querySelector('#phone').value;
         data["email"] = document.querySelector('#email').value !== '' ? document.querySelector('#email').value : '';
         data["services"] = formData;
-        console.log(formData);
 
         if (formData.length > 0) {
             checkoutButton.disabled = true;
@@ -256,21 +245,20 @@ function displayModal(message) {
 }
 
 function updateDOM(e) {
-    let service, option, date, time;
+    let option, date, time;
+    const service = e.target.parentElement.parentElement.children[0].firstElementChild;
 
     if (e.target.classList.contains('selector')) {
-        service = e.target.parentElement.parentElement.children[0].firstElementChild.value;
         option = e.target.parentElement.parentElement.children[1].firstElementChild.firstElementChild;
         date = e.target.parentElement.parentElement.children[2].firstElementChild;
         time = e.target.parentElement.parentElement.children[3].firstElementChild;
     } else {
-        service = e.target.parentElement.parentElement.children[0].firstElementChild;
         option = e.target.parentElement.parentElement.parentElement.children[2].firstElementChild.firstElementChild;
         date = e.target.parentElement.parentElement.parentElement.children[3].firstElementChild;
         time = e.target.parentElement.parentElement.parentElement.children[4].firstElementChild;
     }
 
-    if (service !== '' || service.checked === true) {
+    if ((service.value !== '' && service.classList.contains('selector')) || service.checked === true) {
         option.removeAttribute("disabled");
         date.removeAttribute("disabled");
     } else {
