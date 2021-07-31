@@ -100,6 +100,11 @@ function loadEventListeners() {
         checkoutButton.disabled = true;
 
         // @TODO refactor this to use 1 selector
+        // document.querySelectorAll('.selector, .switch').forEach(item => {
+        //     item.addEventListener('change', e => {
+        //         updateDOM(e);
+        //     });
+        // });
         const eyebrowExtensionAppointment = $('[name="eyebrowExtension[]"]');
         const hdEyebrowAppointment = $('[name="hdEyebrow[]"]');
         const eyebrowIronAppointment = $('[name="eyebrowIron[]"]');
