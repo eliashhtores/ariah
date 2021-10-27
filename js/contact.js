@@ -1,28 +1,6 @@
 loadEventListeners()
 validateDate()
-const forbiddenDates = [
-    '12-24',
-    '12-25',
-    '01-01',
-    '10-09',
-    '10-10',
-    '10-11',
-    '10-12',
-    '10-13',
-    '10-14',
-    '10-15',
-    '10-16',
-    '10-17',
-    '10-18',
-    '10-19',
-    '10-20',
-    '10-21',
-    '10-22',
-    '10-23',
-    '10-24',
-    '10-25',
-    '10-26',
-]
+const forbiddenDates = ['12-24', '12-25', '01-01']
 let service, option, date, time
 
 function validateDate() {
