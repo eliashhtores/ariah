@@ -1,6 +1,6 @@
 loadEventListeners()
 validateDate()
-const forbiddenDates = ['12-24', '12-25', '01-01']
+const forbiddenDates = ['12-24', '12-25', '01-01', '05-06', '05-07']
 let service, option, date, time
 
 function validateDate() {
@@ -66,7 +66,7 @@ function getValidTimes(time, response, short) {
 
     try {
         service = response[0]._id['short'].findIndex(index)
-    } catch (error) {}
+    } catch (error) { }
 
     for (let i = time.length - 1; i >= 0; i--) {
         Object.keys(response).forEach(function (key) {
@@ -76,7 +76,7 @@ function getValidTimes(time, response, short) {
                     time[i].disabled = true
                     counter++
                 }
-            } catch (error) {}
+            } catch (error) { }
         })
     }
     return time.length - counter
