@@ -14,7 +14,7 @@ window.onload = function () {
     let url = `http://${window.location.hostname}:3000/appointments/admin/${today}`;
 
     if (window.location.hostname !== '127.0.0.1') {
-        url = `https://troubled-jay-dirndl.cyclic.app/appointments/admin/${today}`;
+        url = `https://ariah-server.herokuapp.com/appointments/admin/${today}`;
     }
 
     const div = document.createElement("div");

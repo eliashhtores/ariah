@@ -193,7 +193,7 @@ function loadEventListeners() {
             let host = `http://${window.location.hostname}:3000`
 
             if (window.location.hostname !== '127.0.0.1') {
-                host = `https://troubled-jay-dirndl.cyclic.app`
+                host = `https://ariah-server.herokuapp.com`
             }
 
             const storage = localStorage
@@ -229,7 +229,7 @@ function loadEventListeners() {
 async function checkDuplicated(short, date) {
     let url = `http://${window.location.hostname}:3000/appointments`
     if (window.location.hostname !== '127.0.0.1') {
-        url = `https://troubled-jay-dirndl.cyclic.app/appointments`
+        url = `https://ariah-server.herokuapp.com/appointments`
     }
 
     const response = await fetch(`${url}/check/${short}/${date}`, {
